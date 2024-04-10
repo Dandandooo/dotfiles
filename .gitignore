@@ -1,0 +1,4 @@
+.DS_Store
+
+# For security reasons (secrets, passwords, etc.)
+.config/fish/fish_variables
