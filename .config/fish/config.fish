@@ -54,6 +54,11 @@ set -g color_os_str eeeeee
 set -g color_virtual_env_bg 0087ff
 set -g color_virtual_env_str ffd700
 
+# Vim mode colors
+set -g color_vi_mode_normal adda78
+set -g color_vi_mode_insert 6ab0f3
+set -g color_vi_mode_visual f9cc6c
+
 # Status backgrounds
 set -g color_status_private_bg 262626
 set -g color_status_nonzero_bg 262626
@@ -137,7 +142,9 @@ set -g color_vi_mode_indicator 262626
 
 function prompt_vi_mode -d 'vi mode status indicator'
   set -l right_segment_separator \uE0B2
-  set_color -b $color_conda_bg
+  if set -q $CONDA_SHLVL
+    set_color -b $color_conda_bg
+  end
   switch $fish_bind_mode
     case default
     set -l mode (fish_cursor_name_to_code $cursor_vi_mode_normal)
