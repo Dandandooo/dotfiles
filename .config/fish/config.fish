@@ -8,9 +8,9 @@ end
 #set -x DRIVEFS "$HOME/Library/CloudStorage/GoogleDrive-1522451@fcpsschools.net"
 #set -x ML_PATH "$DRIVEFS/My Drive/High School/12th Grade/2 - ML"
 set -x OneDrive "$HOME/OneDrive - University of Illinois - Urbana"
-set -x OLD_DRIVE "$HOME/OneDrive - University of Illinois - Urbana/Old Drive"
+set -x OLD_DRIVE "$HOME/OneDrive - University of Illinois - Urbana/Old Drive/"
 
-set -x APCS "$OLD_DRIVE/High School/10th Grade/Pd.1 - CS"
+set -x APCS "$OLD_DRIVE/High School/10th Grade/Pd.1 CS"
 set -x ML "$OLD_DRIVE/High School/12th Grade/2 - ML"
 set -x AI "$OLD_DRIVE/High School/11th Grade/AI"
 #set -x EXO_GEN "$DRIVEFS/My Drive/High School/12th Grade/1 - Astro/Exoplanet Generator"
