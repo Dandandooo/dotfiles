@@ -162,6 +162,12 @@ return {
         "stevearc/aerial.nvim", -- program structure
         config = require("plugins.config.aerial"),
     },
+    {
+        "thePrimeagen/harpoon",
+        config = require("plugins.config.harpoon"),
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
 
     --- @Verion Control
     {

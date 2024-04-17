@@ -19,4 +19,21 @@ return function()
             lsp_zero.default_setup,
         },
     })
+
+    require("cmp").setup({
+        sources = {
+            { name = "nvim_lsp" },
+            { name = "mason" },
+            { name = "path" },
+            { name = "buffer" },
+        },
+        mapping = {
+            ["<Right>"] = require("cmp").mapping.complete(),
+            ["<leader>c"] = require("cmp").mapping.close(),
+            ["<CR>"] = require("cmp").mapping.confirm({
+                behavior = require("cmp").ConfirmBehavior.Insert,
+                select = true,
+            }),
+        },
+    })
 end
