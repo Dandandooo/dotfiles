@@ -42,9 +42,26 @@ set -x PATH "/Users/dani/.modular/pkg/packages.modular.com_mojo/bin" "$PATH"
 # Set Up XAuth
 set -x XAUTHORITY "$HOME/.Xauthority"
 
+
 #### THEME SETTINGS ####
 set -g theme_display_user yes
 set -g theme_hide_hostname yes
+
+set -g theme_red    fd6883 #fd6883
+set -g theme_orange f38d70 #f38d70
+set -g theme_yellow f9cc6c #f9cc9c
+set -g theme_green  adda78 #adda78
+set -g theme_blue   6ab0f3 #6ab0f3
+set -g theme_purple c397d8 #c397d8
+
+set -g theme_pink   d997c8 #d99cc8
+set -g theme_cyan   85dacc #85dacc
+set -g theme_mint   79dcaa #79dcaa
+set -g theme_gray   262626 #262626
+set -g theme_lgray  c7c7ca #c7c7ca
+
+
+# Prompt Colors
 
 set -g color_dir_bg ffaf5f
 set -g color_dir_str 585858
@@ -63,10 +80,10 @@ set -g color_vi_mode_insert 6ab0f3
 set -g color_vi_mode_visual f9cc6c
 
 # Status backgrounds
-set -g color_status_private_bg 262626
-set -g color_status_nonzero_bg 262626
-set -g color_status_superuser_bg 262626
-set -g color_status_jobs_bg 262626
+set -g color_status_private_bg $theme_gray
+set -g color_status_nonzero_bg $theme_gray
+set -g color_status_superuser_bg $theme_gray
+set -g color_status_jobs_bg $theme_gray
 
 # Git
 set -g branch_symbol "🕊️"
