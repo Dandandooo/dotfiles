@@ -28,8 +28,6 @@ return function()
             { name = "buffer" },
         },
         mapping = {
-            ["<Right>"] = require("cmp").mapping.complete(),
-            ["<leader>c"] = require("cmp").mapping.close(),
             ["<CR>"] = require("cmp").mapping.confirm({
                 behavior = require("cmp").ConfirmBehavior.Insert,
                 select = true,
