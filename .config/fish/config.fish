@@ -5,6 +5,8 @@ if test -f /opt/homebrew/Caskroom/mambaforge/base/bin/conda
 end
 # <<< conda initialize <<<
 
+set fish_greeting "⋉( ⊂ ´◕ ᴥ ◕`)"
+
 #set -x DRIVEFS "$HOME/Library/CloudStorage/GoogleDrive-1522451@fcpsschools.net"
 #set -x ML_PATH "$DRIVEFS/My Drive/High School/12th Grade/2 - ML"
 set -x OneDrive "$HOME/OneDrive - University of Illinois - Urbana"
