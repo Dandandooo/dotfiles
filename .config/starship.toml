@@ -1,4 +1,80 @@
+format = """
+$os[](fg:dim_gray bg:darkred)\
+$username[](fg:darkred bg:orange)\
+$directory[](fg:orange)\
+$git
+$shell$nix_shell$conda$character 
+"""
 
-
+palette = "monokai"
 [palettes.monokai]
+dim_gray = "#363636"
+red = "#fd6883"
+darkred = "#660000"
+orange = "#f38d70"
+yellow = "#f9cc6c"
+green = "#adda78"
+blue = "#6ab0f3"
+violet = "#c397d8"
+
+[character]
+disabled = false
+success_symbol = "[❯](bold blue)"
+
+
+[os]
+disabled = false
+format = "[ $symbol ]($style)"
+style = "bg:dim_gray fg:blue"
+
+[shell]
+disabled = false
+format = "[ $indicator ]($style)"
+style = "fg:violet"
+fish_indicator = "󰈺"
+zsh_indicator = "󰰶"
+bash_indicator = ""
+xonsh_indicator = "󰌠"
+unknown_indicator = ""
+
+[os.symbols]
+Arch = "󰣇"
+Debian = ""
+Fedora = ""
+Linux = ""
+Macos = ""
+NixOS = ""
+Ubuntu = "󰕈"
+# Vanilla = ""
+Windows = ""
+
+[username]
+format = "[ $user ]($style)"
+show_always = true
+style_user = "bg:darkred fg:yellow"
+style_root = "bg:darkred fg:red"
+
+[directory]
+format = "[ $path ]($style)"
+style = "bg:orange fg:dim_gray"
+fish_style_pwd_dir_length = 1
+
+[nix_shell]
+disabled = false
+format = "+$state "
+pure_msg = "[](blue)"
+impure_msg = "[](red)"
+unknown_msg = "[](yellow)"
+
+[conda]
+disabled = false
+format = "+[$symbol$environment]($style)"
+symbol = "🐍"
+style = "green"
+
+
+
+[status]
+disabled = false
+
 

@@ -14,8 +14,8 @@
 
     homeConfigurations = {
       dani = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs;
-        modules = [ ~/.config/home-manager/home.nix ];
+        pkgs = import nixpkgs { system = "aarch64-darwin"; };
+        modules = [ .config/home-manager/home.nix ];
       };
     };
   };
