@@ -47,8 +47,8 @@ set -x PATH "/Users/dani/.modular/pkg/packages.modular.com_mojo/bin" "$PATH"
 set -x XAUTHORITY "$HOME/.Xauthority"
 
 #### THEME SETTINGS ####
-set -g theme_red    fd6883 #fd6883 #f97b7a
-set -g theme_orange f38d70 #f38d70 #f49060
+set -g theme_red    fd6883 #fd6883 #ff6f8a
+set -g theme_orange f38d70 #f38d70 #ff9070
 set -g theme_yellow f9cc6c #f9cc6c #f9cc9c
 set -g theme_green  adda78 #adda78 #adda90
 set -g theme_blue   6ab0f3 #6ab0f3 #7aa2f3

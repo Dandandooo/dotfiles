@@ -1,4 +1,8 @@
 .DS_Store
 
+# Nix related leftovers
+result
+flake.lock
+
 # For security reasons (secrets, passwords, etc.)
 .config/fish/fish_variables
