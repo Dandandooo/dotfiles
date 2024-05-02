@@ -69,10 +69,9 @@
     enable = true;
     interactiveShellInit = ''set fish_greeting "⋉( ⊂ ´◕ ᴥ ◕`)"'';
     plugins = [
-      { name="done"; src=pkgs.fishPlugins.done; }
-      { name="sponge"; src=pkgs.fishPlugins.sponge; }
-      { name="async-prompt"; src=pkgs.fishPlugins.async-prompt; }
-      { name="colored-man-pages"; src=pkgs.fishPlugins.colored-man-pages; }
+      { name="done"; src=pkgs.fishPlugins.done.src; }
+      { name="sponge"; src=pkgs.fishPlugins.sponge.src; }
+      { name="colored-man-pages"; src=pkgs.fishPlugins.colored-man-pages.src; }
     ];
   };
 
