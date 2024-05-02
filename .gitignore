@@ -4,5 +4,9 @@
 result
 flake.lock
 
+# Misc
+*.log
+lazy-lock.json
+
 # For security reasons (secrets, passwords, etc.)
 .config/fish/fish_variables
