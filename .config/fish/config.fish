@@ -28,7 +28,7 @@ alias nvim-config "nvim $NEOVIM"
 alias fish-config "nvim ~/.config/fish/config.fish"
 
 # ZOXIDE Config
-zoxide init fish | source
+# zoxide init fish | source
 
 # COLORS
 alias ls "ls --color=auto"
