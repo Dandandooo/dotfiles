@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nix-colors, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -6,10 +6,29 @@
   home.username = "dani";
   home.homeDirectory = "/Users/dani";
 
+  imports = [
+
+  ];
+
+  # colorScheme = nix-colors.colorSchemes.gruvbox-light-medium;
+  # colorScheme = nix-colors.colorSchemes.gruvbox-light-soft;
+  # colorScheme = nix-colors.colorSchemes.oxocarbon-light;
+
+  # colorScheme = nix-colors.colorSchemes.atlas;
+  # colorScheme = nix-colors.colorSchemes.bespin;
+  # colorScheme = nix-colors.colorSchemes.dracula;
+  # colorScheme = nix-colors.colorSchemes.gruvbox-dark-medium;
+  # colorScheme = nix-colors.colorSchemes.gruvbox-dark-pale;
+  # colorScheme = nix-colors.colorSchemes.gruvbox-dark-soft;
+  # colorScheme = nix-colors.colorSchemes.kanagawa;
+  # colorScheme = nix-colors.colorSchemes.monokai;
+  # colorScheme = nix-colors.colorSchemes.oxocarbon-dark;
+  # colorScheme = nix-colors.colorSchemes.papercolor-dark;
+  # colorScheme = nix-colors.colorSchemes.rose-pine;
+  # colorScheme = nix-colors.colorSchemes.rose-pine-moon;
+
   # The home.packages option allows you to install Nix packages into your environment.
   home.packages = with pkgs; [
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
     # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
@@ -39,8 +58,9 @@
     cloc
     bat
 
-    ### Misc
+    ### Fonts
     nerdfonts
+    # (nerdfonts.override { fonts = [ "MartianMono" "CascadiaCode" "HeavyData" "Hack" "Agave" ]; })
 
     ### Misc troll packages
     asciiquarium
@@ -84,6 +104,7 @@
 
   programs.bash = {
     enable = true;
+    enableCompletion = true;
   };
 
   programs.nushell = {
@@ -108,6 +129,7 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
+    ".xonshrc".text = "execx($(starship init xonsh))";
   };
 
 

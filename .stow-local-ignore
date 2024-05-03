@@ -2,7 +2,9 @@
 \.git
 \.gitignore
 
+# Nix stuff
 result
+*\.lock
 
 # Default stuff
 RCS
