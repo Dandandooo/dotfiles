@@ -47,6 +47,7 @@ fish_indicator = "󰈺"
 zsh_indicator = "󰰶"
 bash_indicator = ""
 xonsh_indicator = "󰌠"
+nu_indicator = "[nu](italic $style)"
 unknown_indicator = ""
 
 [os.symbols]

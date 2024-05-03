@@ -14,35 +14,25 @@
     # # fonts?
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-
     ### Shells
-    starship
     xonsh
 
     ### System information
+    fastfetch
     neofetch
     onefetch
     btop
-    htop
 
     ### Version control
     git-lfs
     gh
 
     ### Productivity
-    thefuck
     zellij
     tmux
 
     ### File Utility
     miller
-    zoxide
     dust
     tree
     stow
@@ -75,25 +65,38 @@
   ##############################
   #          Shells            #
   ##############################
-  /*
   programs.fish = {
     enable = true;
-    interactiveShellInit = "set fish_greeting ⋉( ⊂ ´◕ ᴥ ◕`)|";
+    interactiveShellInit = ''set fish_greeting "⋉( ⊂ ´◕ ᴥ ◕`)"'';
     plugins = [
+      { name="done"; src=pkgs.fishPlugins.done.src; }
+      { name="sponge"; src=pkgs.fishPlugins.sponge.src; }
+      { name="colored-man-pages"; src=pkgs.fishPlugins.colored-man-pages.src; }
     ];
   };
-  */
 
-  /*
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
+    syntaxHighlighting.enable = true;
   };
-  */
 
-  # programs.bash.enable = true;
-  # programs.nushell.enable = true;
+  programs.bash = {
+    enable = true;
+  };
+
+  programs.nushell = {
+    enable = true;
+    extraConfig = ''
+    $env.config = {
+      show_banner: false,
+    }'';
+  };
+
+  programs.starship.enable = true;
+  programs.zoxide.enable = true;
+  programs.thefuck.enable = true;
 
   ##############################
   #          Editors           #
@@ -105,16 +108,6 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
   };
 
 
