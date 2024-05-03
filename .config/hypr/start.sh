@@ -3,6 +3,6 @@
 # initialize wallpaper daemon
 swww init &
 # set wallpaper
-swww img ~/.config/wallpapers/sushigrassgray.png &
+swww img ~/.config/wallpapers/croc.jpg &
 
 waybar
