@@ -4,10 +4,14 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "dani";
-  home.homeDirectory = "/Users/dani";
+  home.homeDirectory = "/home/${config.home.username}";
 
   imports = [
-
+    # ./modules/nvim
+    # kitty
+    # misc
+    # jetbrains
+    # shell
   ];
 
   # colorScheme = nix-colors.colorSchemes.gruvbox-light-medium;

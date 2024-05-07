@@ -5,4 +5,5 @@ swww init &
 # set wallpaper
 swww img ~/.config/wallpapers/croc.jpg &
 
-waybar
+waybar &
+jetbrains-toolbox

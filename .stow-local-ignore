@@ -4,7 +4,7 @@
 
 # Nix stuff
 result
-*\.lock
+.*\.lock
 
 # Default stuff
 RCS

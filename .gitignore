@@ -2,7 +2,7 @@
 
 # Nix related leftovers
 result
-flake.lock
+#flake.lock
 
 # Misc
 *.log
