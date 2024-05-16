@@ -92,9 +92,7 @@ return {
     --- @Syntax
     {
         "nvim-treesitter/nvim-treesitter",
-        config = function()
-            require("plugins.config.treesitter")
-        end,
+        config = require("plugins.config.treesitter"),
         build=":TSUpdate",
     },
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
