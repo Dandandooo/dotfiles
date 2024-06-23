@@ -4,14 +4,13 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "dani";
-  home.homeDirectory = "/home/${config.home.username}";
+  home.homeDirectory = if builtins.currentSystem == "aarch64-darwin"
+                          then "/Users/dani"
+                          else "/home/dani";
 
   imports = [
-    # ./modules/nvim
-    # kitty
-    # misc
-    # jetbrains
-    # shell
+    ./modules/terminal
+    ./modules/neovim
   ];
 
   # colorScheme = nix-colors.colorSchemes.gruvbox-light-medium;
@@ -31,97 +30,29 @@
   # colorScheme = nix-colors.colorSchemes.rose-pine;
   # colorScheme = nix-colors.colorSchemes.rose-pine-moon;
 
+  # nixpkgs.config.allowUnsupportedSystem = true;
+
   # The home.packages option allows you to install Nix packages into your environment.
   home.packages = with pkgs; [
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    ### Devtools
+    rustup
+    ghc
+    # conda
 
-    ### Shells
-    xonsh
-
-    ### System information
-    fastfetch
-    neofetch
-    onefetch
-    btop
-
-    ### Version control
-    git-lfs
-    gh
-
-    ### Productivity
-    zellij
-    tmux
-
-    ### File Utility
-    miller
-    dust
-    tree
-    stow
-    cloc
-    bat
+    packwiz
 
     ### Fonts
-    nerdfonts
-    # (nerdfonts.override { fonts = [ "MartianMono" "CascadiaCode" "HeavyData" "Hack" "Agave" ]; })
-
-    ### Misc troll packages
-    asciiquarium
-    fortune
-    nyancat
-    cmatrix
-    cbonsai
-    cowsay
-    lolcat
-    figlet
-    pipes
-    sl
+    (nerdfonts.override { fonts = [ "MartianMono" "CascadiaCode" "HeavyData" "Hack" "Agave" "JetBrainsMono" ]; })
   ];
 
   # Git configuration
   programs.git = {
     enable = true;
+    lfs.enable = true;
     userName = "Dandandooo";
     userEmail = "batkodanny@gmail.com";
   };
-
-  ##############################
-  #          Shells            #
-  ##############################
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''set fish_greeting "⋉( ⊂ ´◕ ᴥ ◕`)"'';
-    plugins = [
-      { name="done"; src=pkgs.fishPlugins.done.src; }
-      { name="sponge"; src=pkgs.fishPlugins.sponge.src; }
-      { name="colored-man-pages"; src=pkgs.fishPlugins.colored-man-pages.src; }
-    ];
-  };
-
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-  };
-
-  programs.bash = {
-    enable = true;
-    enableCompletion = true;
-  };
-
-  programs.nushell = {
-    enable = true;
-    extraConfig = ''
-    $env.config = {
-      show_banner: false,
-    }'';
-  };
-
-  programs.starship.enable = true;
-  programs.zoxide.enable = true;
-  programs.thefuck.enable = true;
+  programs.gh.enable = true;
 
   ##############################
   #          Editors           #
@@ -132,31 +63,9 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  home.file = {
-    ".xonshrc".text = "execx($(starship init xonsh))";
-  };
 
-
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. If you don't want to manage your shell through Home
-  # Manager then you have to manually source 'hm-session-vars.sh' located at
-  # either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/dani/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
-
+  # home.file = ...
+  # home.sessionVariables = ...
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

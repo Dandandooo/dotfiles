@@ -12,19 +12,20 @@ return {
     { "Mofiqul/dracula.nvim" },
     { "ellisonleao/gruvbox.nvim" },
     { "sainnhe/sonokai" },
-    { "daltonmenezes/aura-theme" },
     { "EdenEast/nightfox.nvim" },
-    { "Pocco81/Catppuccino.nvim" },
-    { "Th3Whit3Wolf/one-nvim" },
     { "shaunsingh/moonlight.nvim" },
     { "navarasu/onedark.nvim" },
     { "nyoom-engineering/oxocarbon.nvim" },
-    { "bluz71/vim-nightfly-colors" },
-    { "bluz71/vim-moonfly-colors" },
     { "savq/melange-nvim" },
     { "AlexvZyl/nordic.nvim" },
     { "folke/lsp-colors.nvim" },
     { "rose-pine/neovim", name = "rose-pine" },
+
+    {
+        "folke/styler.nvim",
+        config = require("plugins.config.styler"),
+    },
+
 
     --- @Miscellaneous
     {
@@ -66,10 +67,12 @@ return {
     }, -- fancy selection menu
 
     -- { "stsewd/spotify.nvim", },
+    --[[
     {
-        "famiu/feline.nvim",
+        "freddiehaddad/feline.nvim",
         config = require("plugins.config.feline")
     },
+    ]]
 
     --- @Productivity
     {
@@ -96,10 +99,10 @@ return {
         build=":TSUpdate",
     },
     { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-    {
+    --[[{
         "kevinhwang91/nvim-ufo",
         dependencies={"kevinhwang91/promise-async"},
-    },
+    },]]
     { "HiPhish/rainbow-delimiters.nvim", },
     { "folke/paint.nvim" }, -- comment colorizer
     { "ovikrai/mojo-syntax" }, -- mojo syntax highlighting
