@@ -38,6 +38,8 @@
     rustup
     ghc
     # conda
+    
+    dotnet-sdk_8
 
     packwiz
 

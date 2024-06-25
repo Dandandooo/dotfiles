@@ -2,5 +2,4 @@
 
 # set wallpaper
 hyprpaper &
-waybar &
-jetbrains-toolbox
+waybar
