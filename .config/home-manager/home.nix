@@ -41,7 +41,12 @@
     
     dotnet-sdk_8
 
+    zulu8
+    # zulu17
+
     packwiz
+    mcrcon
+    fortune
 
     ### Fonts
     (nerdfonts.override { fonts = [ "MartianMono" "CascadiaCode" "HeavyData" "Hack" "Agave" "JetBrainsMono" ]; })

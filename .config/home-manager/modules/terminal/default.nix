@@ -26,13 +26,5 @@
         ".xonshrc".text = "execx($(starship init xonsh))";
     };
 
-    
-    # This actually tanked my PC once
-    home.sessionVariables.Path = if builtins.currentSystem == "aarch64-darwin"
-                                    then "/opt/homebrew/bin:$PATH"
-                                    else "$PATH";
-
-    home.sessionVariables = {
-
-    };
+    home.sessionVariables.PATH = "$PATH:/opt/homebrew/bin";
 }
