@@ -4,11 +4,13 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "dani";
-  home.homeDirectory = if builtins.currentSystem == "aarch64-darwin"
-                          then "/Users/dani"
-                          else "/home/dani";
+  home.homeDirectory = "/home/dani";
+  # home.homeDirectory = if builtins.currentSystem == "aarch64-darwin"
+                          # then "/Users/dani"
+                          # else "/home/dani";
 
   imports = [
+    ./modules
     ./modules/terminal
     ./modules/neovim
   ];

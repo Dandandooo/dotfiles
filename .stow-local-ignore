@@ -5,6 +5,7 @@
 # Nix stuff
 result
 .*\.lock
+nixos
 
 # Default stuff
 RCS
