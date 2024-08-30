@@ -27,7 +27,8 @@
       nixxie = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./nixos/configuration.nix
+          nixos/nixxie-hardware.nix
+          nixos/configuration.nix
           inputs.minegrub-theme.nixosModules.default
           inputs.minegrub-world-sel-theme.nixosModules.default
           inputs.home-manager.nixosModules.home-manager
@@ -39,7 +40,7 @@
       applenix = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
-          ./nixos/configuration.nix
+          nixos/configuration.nix
         ];
       };
     };

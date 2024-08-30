@@ -3,7 +3,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      # /etc/nixos/hardware-configuration.nix # only works in impure ! :(((
       # <home-manager/nixos>
     ];
 
@@ -20,7 +20,7 @@
     minegrub-world-sel = {
       enable = true; 
       customIcons = [{
-	name = "nixos";
+	      name = "nixos";
         lineTop = "NixOS";
         lineBottom = "Survival Mode, No Cheats, Version: ${config.system.nixos.release}";
         imgName = "nixos";
@@ -30,7 +30,7 @@
     # font="${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HeavyDataNerdFont-Regular.ttf";
   };
   # boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
-  # boot.plymouth.enable = true;
+  # boot.plymouth.enable = true; # DO NOT
 
 
   ########## NETWORKING ##########
