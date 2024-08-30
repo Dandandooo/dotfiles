@@ -44,7 +44,7 @@
   hardware.bluetooth.enable = true;
 
   ########## SOUND ##########
-  sound.enable = true;
+  # sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -148,7 +148,7 @@
 
     # Games
     lutris
-    minecraft
+    # minecraft
     prismlauncher
     protonup
 

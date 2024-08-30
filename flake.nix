@@ -2,7 +2,8 @@
   description = "Dandandooo's Dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixospkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-colors.url = "github:misterio77/nix-colors";
 
     nix-darwin.url = "github:LnL7/nix-darwin";
@@ -22,9 +23,9 @@
 
   };
 
-  outputs = { nixpkgs, home-manager, nix-colors, ... } @ inputs: {
+  outputs = { nixpkgs, nixospkgs, home-manager, nix-colors, ... } @ inputs: {
     nixosConfigurations = {
-      nixxie = nixpkgs.lib.nixosSystem {
+      nixxie = nixospkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixos/nixxie-hardware.nix
@@ -32,12 +33,12 @@
           inputs.minegrub-theme.nixosModules.default
           inputs.minegrub-world-sel-theme.nixosModules.default
           inputs.home-manager.nixosModules.home-manager
-          { environments.systemPackages = [
+          { environment.systemPackages = [
               inputs.zen-browser.packages.x86_64-linux.specific
           ]; }
         ];
       };
-      applenix = nixpkgs.lib.nixosSystem {
+      applenix = nixospkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
           nixos/configuration.nix
