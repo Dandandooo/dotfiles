@@ -3,9 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    # flake-utils.url = "github:numtide/flake-utils";
-
     nix-colors.url = "github:misterio77/nix-colors";
 
     nix-darwin.url = "github:LnL7/nix-darwin";
@@ -14,17 +11,18 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     flake-utils.url = "github:numtide/flake-utils";
 
     ags.url = "github:Aylur/ags";
+
+    minegrub-theme.url = "github:Lxtharia/minegrub-theme";
+    minegrub-world-sel-theme.url = "github:Lxtharia/minegrub-world-sel-theme";
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
+
   };
 
   outputs = { nixpkgs, home-manager, nix-colors, ... }: {
-    # defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
-    # defaultPackage.aarch64-linux = home-manager.defaultPackage.aarch64-linux;
-    # defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
-
-
     nixosConfigurations = {
       nixxie = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -44,21 +42,24 @@
       "dani@brick" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "aarch64-darwin"; };
         modules = [ 
-          home-manager/home_brick.nix
+          home-manager/home.nix
+          { home.sessionVariables.PATH = "$PATH:/opt/homebrew/bin"; }
         ];
         extraSpecialArgs = { inherit nix-colors; };
       };
       "dani@nixxie" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
         modules = [ 
-          home-manager/home_nixxie.nix
+          home-manager/home.nix
+          home-manager/modules/linux
         ];
         extraSpecialArgs = { inherit nix-colors; };
       };
       "dani@applenix" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "aarch64-darwin"; };
+        pkgs = import nixpkgs { system = "aarch64-linux"; };
         modules = [ 
-          home-manager/home_applenix.nix
+          home-manager/home.nix
+          home-manager/modules/linux
         ];
         extraSpecialArgs = { inherit nix-colors; };
       };

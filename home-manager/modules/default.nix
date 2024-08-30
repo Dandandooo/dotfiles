@@ -2,13 +2,19 @@
 
 {
 
+  imports = [
+    ./terminal
+    ./neovim
+  ];
 
   home.packages = with pkgs; [
     ### Devtools
     rustup
     ghc
 
+    ### Minecraft utilities
     packwiz
+    mcrcon
 
     ### Fonts
     (nerdfonts.override { fonts = [ "MartianMono" "CascadiaCode" "HeavyData" "Hack" "Agave" "JetBrainsMono" ]; })

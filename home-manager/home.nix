@@ -5,12 +5,8 @@
   # manage.
   home.username = "dani";
   home.homeDirectory = "/home/dani";
-  # home.homeDirectory = if builtins.currentSystem == "aarch64-darwin"
-                          # then "/Users/dani"
-                          # else "/home/dani";
 
   imports = [
-    ./modules
     ./modules/terminal
     ./modules/neovim
   ];
@@ -32,18 +28,14 @@
   # colorScheme = nix-colors.colorSchemes.rose-pine;
   # colorScheme = nix-colors.colorSchemes.rose-pine-moon;
 
-  # nixpkgs.config.allowUnsupportedSystem = true;
-
   # The home.packages option allows you to install Nix packages into your environment.
   home.packages = with pkgs; [
     ### Devtools
     rustup
     ghc
-    # conda
-    
-    dotnet-sdk_8
 
     packwiz
+    mcrcon
 
     ### Fonts
     (nerdfonts.override { fonts = [ "MartianMono" "CascadiaCode" "HeavyData" "Hack" "Agave" "JetBrainsMono" ]; })
