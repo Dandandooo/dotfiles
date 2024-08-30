@@ -5,7 +5,7 @@
 # Nix stuff
 result
 .*\.lock
-nixos
+home-manager
 
 # Default stuff
 RCS
