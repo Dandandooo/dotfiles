@@ -22,12 +22,18 @@
 
   };
 
-  outputs = { nixpkgs, home-manager, nix-colors, ... }: {
+  outputs = { nixpkgs, home-manager, nix-colors, ... } @ inputs: {
     nixosConfigurations = {
       nixxie = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./nixos/configuration.nix
+          inputs.minegrub-theme.nixosModules.default
+          inputs.minegrub-world-sel-theme.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
+          { environments.systemPackages = [
+              inputs.zen-browser.packages.x86_64-linux.specific
+          ]; }
         ];
       };
       applenix = nixpkgs.lib.nixosSystem {
@@ -43,7 +49,10 @@
         pkgs = import nixpkgs { system = "aarch64-darwin"; };
         modules = [ 
           home-manager/home.nix
-          { home.sessionVariables.PATH = "$PATH:/opt/homebrew/bin"; }
+          { 
+            home.homeDirectory = "/Users/dani";
+            home.sessionVariables.PATH = "$PATH:/opt/homebrew/bin";
+          }
         ];
         extraSpecialArgs = { inherit nix-colors; };
       };
