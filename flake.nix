@@ -21,6 +21,8 @@
     minegrub-world-sel-theme.url = "github:Lxtharia/minegrub-world-sel-theme";
     zen-browser.url = "github:MarceColl/zen-browser-flake";
 
+    hyprcursor.url = "github:hyprwm/hyprcursor";
+
   };
 
   outputs = { nixpkgs, nixospkgs, home-manager, nix-colors, ... } @ inputs: {

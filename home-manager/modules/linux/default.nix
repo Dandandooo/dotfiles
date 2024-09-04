@@ -5,11 +5,11 @@
     conda
 
     # For fixing tModLoader
-    dotnet-sdk_8
+    # dotnet-sdk_8
   ];
 
   home.sessionVariables = {
-    DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
+    # DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
   };
 
 }

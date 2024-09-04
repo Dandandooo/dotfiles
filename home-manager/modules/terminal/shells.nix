@@ -85,8 +85,14 @@
   };
 
   # programs.fastfetch.enable = true;
-  ##### SHELL
+
+  ##### PROMPT
   programs.starship.enable = true;
+  # home.file.starship.source = ".config/starship.toml";
+
+
+
+  ##### SHELL
   programs.thefuck.enable = true;
 
   ##### FILES

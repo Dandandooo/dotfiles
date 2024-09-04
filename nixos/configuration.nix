@@ -89,6 +89,9 @@
     enable = true;
     xwayland.enable = true;
   };
+  # TODO: Add hyprlock lock screen
+  # TODO: Add screen sharing ability
+  # TODO: set up screen capture
 
   # Hint Electron apps to use wayland
   environment.sessionVariables = {
@@ -148,7 +151,6 @@
 
     # Games
     lutris
-    # minecraft
     prismlauncher
     protonup
 
@@ -170,6 +172,10 @@
     eww
     wofi
 
+    bibata-cursors
+    gsettings-desktop-schemas
+    glib
+
     # Notifications
     dunst
 
@@ -178,8 +184,6 @@
 
     # Java
     zulu8
-  # ] ++ [
-    # inputs.zen-browser."${system}".specific
   ];
 
 
