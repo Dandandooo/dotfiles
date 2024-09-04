@@ -97,6 +97,7 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
+    XDG_DATA_DIRS = "$XDG_DATA_DIRS:${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-46.0/";
   };
 
   # For Screen sharing

@@ -66,7 +66,7 @@
           home-manager/home.nix
           home-manager/modules/linux
         ];
-        extraSpecialArgs = { inherit nix-colors; };
+        extraSpecialArgs = { inherit nix-colors; inherit inputs; };
       };
       "dani@applenix" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "aarch64-linux"; };
@@ -74,7 +74,7 @@
           home-manager/home.nix
           home-manager/modules/linux
         ];
-        extraSpecialArgs = { inherit nix-colors; };
+        extraSpecialArgs = { inherit nix-colors; inherit inputs; };
       };
     };
   };
