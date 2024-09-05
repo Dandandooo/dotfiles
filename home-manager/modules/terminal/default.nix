@@ -4,6 +4,7 @@
     imports = [
         ./shells.nix
         ./troll.nix
+        ./starship.nix
     ];
 
     home.packages = with pkgs; [

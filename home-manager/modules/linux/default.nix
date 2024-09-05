@@ -3,12 +3,13 @@
 {
 
   imports = [
-    ./ags
+    # ./ags
   ];
 
 
   home.packages = with pkgs; [
     conda
+    clang
 
     # For fixing tModLoader
     # dotnet-sdk_8
