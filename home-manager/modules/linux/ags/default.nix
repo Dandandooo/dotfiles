@@ -8,6 +8,6 @@
 
   programs.ags = {
     enable = true;
-    configDir = "../../../dotfiles/ags";
+    configDir = ../../../dotfiles/ags;
   };
 }
