@@ -22,6 +22,11 @@
     zen-browser.url = "github:MarceColl/zen-browser-flake";
 
     hyprcursor.url = "github:hyprwm/hyprcursor";
+    hyprland.url = "github:hyprwm/hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
 
   };
 
@@ -39,6 +44,7 @@
               inputs.zen-browser.packages.x86_64-linux.specific
           ]; }
         ];
+        specialArgs = { inherit inputs; inherit nix-colors; };
       };
       applenix = nixospkgs.lib.nixosSystem {
         system = "aarch64-linux";

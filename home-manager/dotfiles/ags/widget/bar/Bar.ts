@@ -1,4 +1,4 @@
-mport BatteryBar from "./buttons/BatteryBar"
+import BatteryBar from "./buttons/BatteryBar"
 import ColorPicker from "./buttons/ColorPicker"
 import Date from "./buttons/Date"
 import Launcher from "./buttons/Launcher"

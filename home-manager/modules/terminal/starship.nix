@@ -8,18 +8,13 @@
     settings = { 
 
       format = ''
-        $os[](fg:dim_gray bg:darkred)\
-        $username[](fg:darkred bg:orange)\
-        $directory[](fg:orange bg:yellow)\
-        $git_branch$git_status[](fg:yellow bg:green)\
-        $conda[](fg:green bg:blue)\
-        $nix_shell[](fg:blue bg:violet)\
-        $shell[](fg:violet)
+        $os[](fg:dim_gray bg:darkred)$username[](fg:darkred bg:orange)$directory[](fg:orange bg:yellow)$git_branch$git_status[](fg:yellow bg:green)$conda[](fg:green bg:blue)$nix_shell[](fg:blue bg:violet)$shell[](fg:violet)
         $character
       '';
 
       character = {
         disabled = false;
+        success_symbol = "[❯](bold blue)";
       };
 
       palette = "pale";
@@ -82,12 +77,15 @@
         show_always = true;
         style_user = "bg:darkred fg:yellow";
         style_root = "bg:darkred fg:white";
+        format = "[ $user ]($style)";
       };
 
       directory = {
         format = "[ $path ]($style)";
-        style = "bg:orange fg:blue";
-        fish-style_pwd_dir_length = 1;
+        style = "bg:orange fg:dim_gray";
+        fish_style_pwd_dir_length = 1;
+        truncate_to_repo = true;
+        truncation_symbol = "…/";
       };
 
       git_branch = {
@@ -97,7 +95,7 @@
       };
 
       git_status = {
-        format = "[\[$all_status$ahead_behind\] ]($style)";
+        format = "[\\[$all_status$ahead_behind\\] ]($style)";
         style = "bg:yellow fg:dim_gray";
         ignore_submodules = true;
       };
