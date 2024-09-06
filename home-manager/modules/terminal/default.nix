@@ -25,6 +25,10 @@
     
     home.file = {
         ".xonshrc".text = "execx($(starship init xonsh))";
+        ".config/kitty" = {
+            source = ./kitty;
+            target = ".config/kitty";
+        };
     };
 
     
