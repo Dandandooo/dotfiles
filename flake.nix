@@ -16,6 +16,8 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     ags.url = "github:Aylur/ags";
+    matugen.url = "github:InioX/matugen";
+      
 
     minegrub-theme.url = "github:Lxtharia/minegrub-theme";
     minegrub-world-sel-theme.url = "github:Lxtharia/minegrub-world-sel-theme";

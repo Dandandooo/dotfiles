@@ -20,6 +20,6 @@ map ctrl+v     paste_from_clipboard
 
 
 # BEGIN_KITTY_THEME
-# Base2Tone Pool Dark
+# Rosé Pine Moon
 include current-theme.conf
 # END_KITTY_THEME

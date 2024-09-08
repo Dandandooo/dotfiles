@@ -4,16 +4,16 @@
 
   imports = [
     inputs.ags.homeManagerModules.default
-    ./config
+    # ./config
   ];
 
-  /*
+  # /*
   home.packages = with pkgs; [
     bun
     dart-sass
     fd
     swww
-    # inputs.matugen.packages.${system}.default
+    inputs.matugen.packages.${system}.default
     fd
     brightnessctl
     adwaita-icon-theme
@@ -35,9 +35,6 @@
       webkitgtk
       accountsservice
     ];
-    options = {
-
-    };
   };
-  */
+  # */
 }
