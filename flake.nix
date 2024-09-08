@@ -64,7 +64,7 @@
             home.sessionVariables.PATH = "$PATH:/opt/homebrew/bin";
           }
         ];
-        extraSpecialArgs = { inherit nix-colors; };
+        extraSpecialArgs = { inherit nix-colors; inherit inputs; };
       };
       "dani@nixxie" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "x86_64-linux"; };

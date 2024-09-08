@@ -4,6 +4,7 @@
 
   imports = [
     ./ags
+    ./hyprland
   ];
 
 
@@ -14,6 +15,13 @@
   ];
 
   home.sessionVariables = {
+  };
+
+  home.file = {
+    ".config/hypr" = {
+      source = ../../../.config/hypr;
+      target = ".config/hypr";
+    };
   };
 
 }

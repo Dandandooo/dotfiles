@@ -41,6 +41,13 @@
     (nerdfonts.override { fonts = [ "MartianMono" "CascadiaCode" "HeavyData" "Hack" "Agave" "JetBrainsMono" ]; })
   ];
 
+  home.file = {
+    ".config/wallpapers" = {
+      source = ../.config/wallpapers;
+      target = ".config/wallpapers";
+    };
+  };
+
   # Git configuration
   programs.git = {
     enable = true;

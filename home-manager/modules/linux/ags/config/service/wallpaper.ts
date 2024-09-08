@@ -12,7 +12,7 @@ export type Market =
     | "en-NZ"
     | "en-CA"
 
-const WP = `${Utils.HOME}/.config/background`
+const WP = `${Utils.HOME}/.config/wallpapers`
 const Cache = `${Utils.HOME}/Pictures/Wallpapers/Bing`
 
 class Wallpaper extends Service {
