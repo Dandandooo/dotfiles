@@ -4,15 +4,27 @@
 
   imports = [
     inputs.ags.homeManagerModules.default
+    ./config
   ];
 
+  /*
   home.packages = with pkgs; [
     bun
+    dart-sass
+    fd
     swww
-    sass
+    # inputs.matugen.packages.${system}.default
     fd
     brightnessctl
     adwaita-icon-theme
+    gtk3
+    slurp
+    wf-recorder
+    wl-clipboard
+    wayshot
+    swappy
+    hyprpicker
+    pavucontrol
   ];
 
   programs.ags = {
@@ -23,5 +35,9 @@
       webkitgtk
       accountsservice
     ];
+    options = {
+
+    };
   };
+  */
 }

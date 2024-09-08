@@ -6,6 +6,11 @@
 result
 .*\.lock
 home-manager
+nixos
+flake.*
+
+# Extras
+\.sass-cache
 
 # Default stuff
 RCS
