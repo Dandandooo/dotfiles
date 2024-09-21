@@ -1,4 +1,4 @@
-{ config, pkgs, nix-colors, ... }:
+{ config, pkgs, nix-colors, nixpkgs,... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -9,6 +9,7 @@
   imports = [
     ./modules/terminal
     ./modules/neovim
+    ./modules/spotify.nix
   ];
 
   # colorScheme = nix-colors.colorSchemes.gruvbox-light-medium;
@@ -29,6 +30,7 @@
   # colorScheme = nix-colors.colorSchemes.rose-pine-moon;
 
   # The home.packages option allows you to install Nix packages into your environment.
+  nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     ### Devtools
     rustup
