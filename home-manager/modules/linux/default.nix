@@ -2,6 +2,8 @@
 
 {
 
+  home.homeDirectory = "/home/dani";
+
   imports = [
     ./ags
     # ./hyprland.nix

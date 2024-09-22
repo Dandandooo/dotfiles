@@ -4,7 +4,6 @@
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "dani";
-  home.homeDirectory = "/home/dani";
 
   imports = [
     ./modules/terminal

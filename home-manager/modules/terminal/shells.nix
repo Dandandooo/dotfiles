@@ -19,7 +19,7 @@
       function fish_greeting
         echo (set_color green)
         echo -s " ________ " (set_color red) ".-./`)" (set_color green) "    .-''''-. .---.  .---."
-        echo -s "|        |" (set_color red) "\ " (set_color yellow) ".-." (set_color red) "')" (set_color green) "  / _     \|   |  |" (set_color red) "_ _" (set_color green) "|"
+        echo -s "|        |" (set_color red) "\ " (set_color yellow) ".-." (set_color red) "')" (set_color green) "  / " (set_color red) "_" (set_color green) "     \|   |  |" (set_color red) "_ _" (set_color green) "|"
         echo -s "|   .----'" (set_color red) "/ " (set_color yellow) "`-'" (set_color red) " \ (`' )" (set_color green) "/`--'|   |  " (set_color red) "( ' )" (set_color green)
         echo -s "|  " (set_color red;) _ (set_color green) "|____  " (set_color red) "`-'`\"`(_ " (set_color yellow) o (set_color red) " _)" (set_color green) ".   |   '-" (set_color red) "(_" (set_color yellow) "{;}" (set_color red) "_)" (set_color green)
         echo -s "|" (set_color red;) "_( )_" (set_color green) "   | .---.  " (set_color red) "(_,_)" (set_color green) ". '. |      " (set_color red) "(_,_)"
