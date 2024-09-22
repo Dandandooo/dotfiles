@@ -2,10 +2,8 @@
   description = "Dandandooo's Dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    # flake-utils.url = "github:numtide/flake-utils";
-
+    nixospkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-colors.url = "github:misterio77/nix-colors";
 
     nix-darwin.url = "github:LnL7/nix-darwin";
@@ -14,56 +12,77 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     flake-utils.url = "github:numtide/flake-utils";
+
+    ags.url = "github:Aylur/ags";
+    matugen.url = "github:InioX/matugen";
+      
+
+    minegrub-theme.url = "github:Lxtharia/minegrub-theme";
+    minegrub-world-sel-theme.url = "github:Lxtharia/minegrub-world-sel-theme";
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
+
+    hyprcursor.url = "github:hyprwm/hyprcursor";
+    hyprland.url = "github:hyprwm/hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
   };
 
-  outputs = { nixpkgs, home-manager, nix-colors, ... }: {
-    # let inherit (self) outputs;
-      # systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
-      # forAllSystems = nixpkgs.lib.genAttrs systems;
-    # in {
-    
-    defaultPackage.aarch64-darwin = home-manager.defaultPackage.aarch64-darwin;
-    defaultPackage.aarch64-linux = home-manager.defaultPackage.aarch64-linux;
-    defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
-
-
+  outputs = { nixpkgs, nixospkgs, home-manager, nix-colors, ... } @ inputs: {
     nixosConfigurations = {
-      nixxie = nixpkgs.lib.nixosSystem {
+      nixxie = nixospkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./nixos/configuration.nix
+          nixos/nixxie-hardware.nix
+          nixos/configuration.nix
+          inputs.minegrub-theme.nixosModules.default
+          inputs.minegrub-world-sel-theme.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
+          { environment.systemPackages = [
+              inputs.zen-browser.packages.x86_64-linux.specific
+          ]; }
+        ];
+        specialArgs = { inherit inputs; inherit nix-colors; };
+      };
+      applenix = nixospkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          nixos/configuration.nix
         ];
       };
-      # goat = nixpkgs.lib.nixosSystem {
-        # system = "aarch64-darwin";
-        # modules = [
-          # ./nixos/configuration.nix
-        # ];
-      # };
     };
 
     homeConfigurations = {
       "dani@brick" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "aarch64-darwin"; };
         modules = [ 
-          .config/home-manager/home.nix
+          home-manager/home.nix
+          { 
+            home.homeDirectory = "/Users/dani";
+            home.sessionVariables.PATH = "$PATH:/opt/homebrew/bin";
+          }
         ];
-        extraSpecialArgs = { inherit nix-colors; };
+        extraSpecialArgs = { inherit nix-colors; inherit inputs; };
       };
       "dani@nixxie" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
         modules = [ 
-          .config/home-manager/home.nix
+          home-manager/home.nix
+          home-manager/modules/linux
         ];
-        extraSpecialArgs = { inherit nix-colors; };
+        extraSpecialArgs = { inherit nix-colors; inherit inputs; };
       };
       "dani@applenix" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "aarch64-darwin"; };
+        pkgs = import nixpkgs { system = "aarch64-linux"; };
         modules = [ 
-          .config/home-manager/home.nix
+          home-manager/home.nix
+          home-manager/modules/linux
         ];
-        extraSpecialArgs = { inherit nix-colors; };
+        extraSpecialArgs = { inherit nix-colors; inherit inputs; };
       };
     };
   };
