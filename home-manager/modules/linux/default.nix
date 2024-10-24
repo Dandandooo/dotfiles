@@ -22,10 +22,10 @@
   };
 
   home.file = {
-    # ".config/hypr" = {
-      # source = ../../../.config/hypr;
-      # target = ".config/hypr";
-    # };
+    ".config/hypr" = {
+      source = ../../../.config/hypr;
+      target = ".config/hypr";
+    };
   };
 
 }
