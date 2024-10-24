@@ -46,10 +46,10 @@
   ];
 
   home.file = {
-    # ".config/wallpapers" = {
-      # source = ../.config/wallpapers;
-      # target = ".config/wallpapers";
-    # };
+    ".config/wallpapers" = {
+      source = ../.config/wallpapers;
+      target = ".config/wallpapers";
+    };
   };
 
   # Git configuration
