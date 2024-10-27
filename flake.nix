@@ -8,16 +8,14 @@
 
     nix-darwin.url = "github:LnL7/nix-darwin";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager";
 
     flake-utils.url = "github:numtide/flake-utils";
 
     ags.url = "github:Aylur/ags";
     matugen.url = "github:InioX/matugen";
-      
+    
+    nixvim.url = "github:nix-community/nixvim";
 
     minegrub-theme.url = "github:Lxtharia/minegrub-theme";
     minegrub-world-sel-theme.url = "github:Lxtharia/minegrub-world-sel-theme";
