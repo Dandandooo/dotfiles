@@ -47,7 +47,7 @@
 
   home.file = {
     ".config/wallpapers" = {
-      source = ../.config/wallpapers;
+      source = ./wallpapers;
       target = ".config/wallpapers";
     };
   };
