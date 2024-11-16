@@ -4,7 +4,7 @@
     programs.nixvim.plugins = {
         lsp = {
             enable = true;
-
+            
             servers = {
                 dockerls.enable = true; # docker
                 clangd.enable = true; # c/c++
@@ -43,8 +43,15 @@
         # Github Copilot
 
         cmp = {
-
+            # enable = true;
+            autoEnableSources = true;
         };
+        # cmp-nvim-lsp.enable = true;
+        # copilot-cmp.enable = true;
+        
+        # copilot-vim.enable = true;
+        copilot-lua.enable = true;
+
 
     };
 

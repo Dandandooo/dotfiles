@@ -6,7 +6,7 @@
     };
     
     programs.nixvim.keymaps = [
-        ### NeoTree
+        ### NeoTree & Yazi
         { mode = "n"; key = "<leader>nt"; action = "<cmd>Neotree toggle<cr>"; }
         { mode = "n"; key = "<leader>nf"; action = "<cmd>Neotree focus<cr>"; }
         { mode = "n"; key = "<leader>ns"; action = "<cmd>Neotree position=current toggle<cr>"; }
@@ -27,7 +27,9 @@
         { mode = "n"; key = "<leader>gh"; action = "<cmd>Gitsigns toggle_linehl<cr>"; }
         { mode = "n"; key = "<leader>gs"; action = "<cmd>Gitsigns toggle_signs<cr>"; }
         
-        ### 
+        ### Harpoon defined in plugins.nix
 
+        ### Whichkey
+        { mode = "n"; key = "<leader>?"; action = "<cmd>Whichkey<cr>"; }
     ];
 }

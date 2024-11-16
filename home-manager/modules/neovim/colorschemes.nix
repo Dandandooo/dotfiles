@@ -1,36 +1,47 @@
 { config, pkgs, nix-colors, ... }:
 
 {
-    programs.nixvim.colorscheme = "rose-pine";
+    programs.nixvim.colorscheme = "monokai-pro-ristretto";
+
+    programs.nixvim.extraPlugins = [
+        { plugin = pkgs.vimPlugins.monokai-pro-nvim; }
+        # { plugin = pkgs.vimPlugins.styler-nvim; }
+    ];
+
+    # programs.nixvim.extraConfigLua = ''
+        # require("styler").setup({
+	        # themes = {
+                # nix = "rose-pine-main";
+            # },
+        # })
+     # '';
 
     programs.nixvim.colorschemes = {
         rose-pine = {
             enable = true;
             settings = {
                 variant = "auto";
-                dark_variant = "moon";
+                dark_variant = "main";
 
                 styles = {
-                    transparency = true;
+                    transparency = false;
                     italic = true;
                     bold = true;
                 };
             };
         };
 
-        kanagawa = {
-            enable = true;
-        };
-
-        melange = {
-            enable = true;
-        };
-
         everforest = {
             enable = true;
             settings = {
-                variant = "hard";
+                background = "hard";
             };
         };
+
+        tokyonight.enable = true;
+        catppuccin.enable = true;
+        nightfox.enable = true;
+        kanagawa.enable = true;
+        melange.enable = true;
     };
 }
