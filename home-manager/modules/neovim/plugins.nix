@@ -30,6 +30,7 @@
                 '';
             };
         };
+        treesitter-context.enable = true;
         rainbow-delimiters.enable = true;
         indent-blankline.enable = true;
 
@@ -148,11 +149,10 @@
         # Editing
         toggleterm = {
             enable = true;
-            autochdir = true;
+            settings.autochdir = true;
         };
         undotree.enable = true;
         guess-indent.enable = true;
-        todo-comment.enable = true;
         comment = {
             enable = true;
             settings = {
@@ -162,11 +162,13 @@
                 };
             };
         };
-        twighlight = {
+        twilight = {
             enable = true;
-            dimming.alpha = 0.25;
-            context = 20;
-            treesitter = true;
+            settings = {
+                dimming.alpha = 0.25;
+                context = 20;
+                treesitter = true;
+            };
         };
 
         # Help
