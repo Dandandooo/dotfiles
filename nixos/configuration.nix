@@ -27,10 +27,10 @@
       }];
     };
     device="nodev";
+    # device="${fileSystems."/boot".device}";
     # font="${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HeavyDataNerdFont-Regular.ttf";
   };
-  # boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
-  # boot.plymouth.enable = true; # DO NOT
+  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 
 
   ########## NETWORKING ##########
@@ -143,6 +143,7 @@
     neofetch
     syncthing
     playerctl
+    i2c-tools
     
     # Terminal
     zsh
@@ -212,8 +213,8 @@
     enable = true;
     motherboard = "amd";
   };
-  # services.udev.packages = [ pkgs.openrgb ];
-  # hardware.i2c.enable = true;
+  services.udev.packages = [ pkgs.openrgb ];
+  hardware.i2c.enable = true;
 
   ########## THEMING ##########
   fonts = {
