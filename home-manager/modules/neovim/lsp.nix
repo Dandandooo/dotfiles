@@ -30,7 +30,7 @@
                 ruff_lsp.enable = true; # python
                 zls.enable = true; # zig
                 
-                ts_ls.enable = true; # typescript
+                # ts_ls.enable = true; # typescript
                 cssls.enable = true; # css
                 html.enable = true; # html
 
