@@ -1,13 +1,11 @@
-format = """
-$os[](fg:dim_gray bg:darkred)\
+format = """$os[](fg:dim_gray bg:darkred)\
 $username[](fg:darkred bg:orange)\
 $directory[](fg:orange bg:yellow)\
 $git_branch$git_status[](fg:yellow bg:green)\
 $conda[](fg:green bg:blue)\
 $nix_shell[](fg:blue bg:violet)\
 $shell[](fg:violet)
-$character
-"""
+$character"""
 
 palette = "pale"
 [palettes.monokai]

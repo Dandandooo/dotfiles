@@ -1,0 +1,3 @@
+$PATH.append("/opt/homebrew/bin")
+$PATH.append("/opt/homebrew/sbin")
+execx($(starship init xonsh))
