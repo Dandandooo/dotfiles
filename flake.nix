@@ -59,7 +59,7 @@
         pkgs = import nixpkgs { system = "aarch64-darwin"; };
         modules = [ 
           home-manager/home.nix
-          { home = { homeDirectory = "/Users/dani"; sessionVariables.PATH = "$PATH:/opt/homebrew/bin"; }; }
+          home-manager/modules/macos.nix
         ];
         extraSpecialArgs = { inherit nix-colors; inherit inputs; };
       };
