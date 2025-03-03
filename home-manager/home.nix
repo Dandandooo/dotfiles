@@ -33,6 +33,7 @@
   home.packages = with pkgs; [
     ### Devtools
     rustup
+    poetry
     ghc
 
     zulu8

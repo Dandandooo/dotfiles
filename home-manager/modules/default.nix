@@ -12,6 +12,7 @@
     ### Devtools
     rustup
     ghc
+    poetry
 
     ### Minecraft utilities
     packwiz

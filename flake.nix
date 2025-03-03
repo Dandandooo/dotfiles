@@ -2,7 +2,7 @@
   description = "Dandandooo's Dotfiles";
 
   inputs = {
-    nixospkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixospkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-colors.url = "github:misterio77/nix-colors";
 
@@ -32,7 +32,7 @@
 
   outputs = { nixpkgs, nixospkgs, home-manager, nix-colors, ... } @ inputs: {
     nixosConfigurations = {
-      nixxie = nixpkgs.lib.nixosSystem {
+      nixxie = nixospkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixos/nixxie-hardware.nix
