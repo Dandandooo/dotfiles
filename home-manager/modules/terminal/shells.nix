@@ -4,7 +4,7 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      # set fish_greeting "⋉( ⊂ ´◕ ᴥ ◕`)"
+      set fish_greeting "⋉( ⊂ ´◕ ᴥ ◕`)"
       # set fish_greeting "
       #      ________ .-./`)    .-''''-. .---.  .---.  
       #     |        |\ .-.')  / _     \|   |  |_ _|  
@@ -16,19 +16,19 @@
       #     |   |      |   |  \       / (_{;}_)|   |  
       #     '---'      '---'   `-...-'  '(_,_) '---'  
       #     "
-      function fish_greeting
-        echo (set_color green)
-        echo -s " ________ " (set_color red) ".-./`)" (set_color green) "    .-''''-. .---.  .---."
-        echo -s "|        |" (set_color red) "\ " (set_color yellow) ".-." (set_color red) "')" (set_color green) "  / " (set_color red) "_" (set_color green) "     \|   |  |" (set_color red) "_ _" (set_color green) "|"
-        echo -s "|   .----'" (set_color red) "/ " (set_color yellow) "`-'" (set_color red) " \ (`' )" (set_color green) "/`--'|   |  " (set_color red) "( ' )" (set_color green)
-        echo -s "|  " (set_color red;) _ (set_color green) "|____  " (set_color red) "`-'`\"`(_ " (set_color yellow) o (set_color red) " _)" (set_color green) ".   |   '-" (set_color red) "(_" (set_color yellow) "{;}" (set_color red) "_)" (set_color green)
-        echo -s "|" (set_color red;) "_( )_" (set_color green) "   | .---.  " (set_color red) "(_,_)" (set_color green) ". '. |      " (set_color red) "(_,_)"
-        echo -s "(_ " (set_color yellow) "o" (set_color red) "._)" (set_color green;) "__| |   | .---.  \  :| " (set_color red) "_ _" (set_color green) "--.   |"
-        echo -s "|" (set_color red) "(_,_)" (set_color green) "     |   | \    `-'  ||" (set_color red) "( ' )" (set_color green) " |   |"
-        echo -s "|   |      |   |  \       / " (set_color red) "(_" (set_color yellow) "{;}" (set_color red) "_)" (set_color green) "|   |"
-        echo -s "'---'      '---'   `-...-'  '" (set_color red) "(_,_)" (set_color green) " '---'"
-        echo (set_color normal)
-      end 
+      # function fish_greeting
+      #   echo (set_color green)
+      #   echo -s " ________ " (set_color red) ".-./`)" (set_color green) "    .-''''-. .---.  .---."
+      #   echo -s "|        |" (set_color red) "\ " (set_color yellow) ".-." (set_color red) "')" (set_color green) "  / " (set_color red) "_" (set_color green) "     \|   |  |" (set_color red) "_ _" (set_color green) "|"
+      #   echo -s "|   .----'" (set_color red) "/ " (set_color yellow) "`-'" (set_color red) " \ (`' )" (set_color green) "/`--'|   |  " (set_color red) "( ' )" (set_color green)
+      #   echo -s "|  " (set_color red;) _ (set_color green) "|____  " (set_color red) "`-'`\"`(_ " (set_color yellow) o (set_color red) " _)" (set_color green) ".   |   '-" (set_color red) "(_" (set_color yellow) "{;}" (set_color red) "_)" (set_color green)
+      #   echo -s "|" (set_color red;) "_( )_" (set_color green) "   | .---.  " (set_color red) "(_,_)" (set_color green) ". '. |      " (set_color red) "(_,_)"
+      #   echo -s "(_ " (set_color yellow) "o" (set_color red) "._)" (set_color green;) "__| |   | .---.  \  :| " (set_color red) "_ _" (set_color green) "--.   |"
+      #   echo -s "|" (set_color red) "(_,_)" (set_color green) "     |   | \    `-'  ||" (set_color red) "( ' )" (set_color green) " |   |"
+      #   echo -s "|   |      |   |  \       / " (set_color red) "(_" (set_color yellow) "{;}" (set_color red) "_)" (set_color green) "|   |"
+      #   echo -s "'---'      '---'   `-...-'  '" (set_color red) "(_,_)" (set_color green) " '---'"
+      #   echo (set_color normal)
+      # end 
     '';
     plugins = [
       # { name="done"; src=pkgs.fishPlugins.done.src; }
@@ -43,16 +43,16 @@
     enableCompletion = true;
     syntaxHighlighting.enable = true;
     initExtra = ''
-    echo "\x1b[31m\n" \
-         "  (\`-')   (\`-').-> (\`-').->\n" \
-         "  ( OO).->( OO)_   (OO )__\n" \
-         "\x1b[33m,\x1b[31m(_/\x1b[33m----.\x1b[31m(_)\x1b[33m--\x1b[31m\_) \x1b[33m,--. ,\x1b[31m'-'\n" \
-         "\x1b[33m|__,    |/    _ / |  | |  |\n" \
-         "\x1b[31m (_\x1b[33m/   / \_..\`--. |  \`-'  |\n" \
-         " .'  .'_ .-._)   \\|  .-.  |\n" \
-         "|       |\       /|  | |  |\n" \
-         "\`-------' \`-----' \`--' \`--'\n" \
-         "\x1b[0m"
+    # echo "\x1b[31m\n" \
+    #      "  (\`-')   (\`-').-> (\`-').->\n" \
+    #      "  ( OO).->( OO)_   (OO )__\n" \
+    #      "\x1b[33m,\x1b[31m(_/\x1b[33m----.\x1b[31m(_)\x1b[33m--\x1b[31m\_) \x1b[33m,--. ,\x1b[31m'-'\n" \
+    #      "\x1b[33m|__,    |/    _ / |  | |  |\n" \
+    #      "\x1b[31m (_\x1b[33m/   / \_..\`--. |  \`-'  |\n" \
+    #      " .'  .'_ .-._)   \\|  .-.  |\n" \
+    #      "|       |\       /|  | |  |\n" \
+    #      "\`-------' \`-----' \`--' \`--'\n" \
+    #      "\x1b[0m"
     '';
   };
 
