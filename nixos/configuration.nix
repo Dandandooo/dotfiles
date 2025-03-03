@@ -8,10 +8,10 @@
     ];
 
   ##########  BOOT  ##########
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.grub = {
-    enable = true;
+    enable = false;
     minegrub-theme = {
       enable = false;
       splash = "100% Flakes!";
@@ -30,7 +30,7 @@
     # device="${fileSystems."/boot".device}";
     # font="${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HeavyDataNerdFont-Regular.ttf";
   };
-  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
+  # boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 
 
   ########## NETWORKING ##########
@@ -79,7 +79,7 @@
   users.users.dani = {
     isNormalUser = true;
     description = "Dani";
-    extraGroups = [ "networkmanager" "wheel" "docker" "i2c"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "i2c" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
@@ -120,9 +120,7 @@
     vscode
 
     # Development
-    dotnet-sdk_8
     docker
-    nodejs
 
     # Music
     spotify
@@ -130,7 +128,6 @@
     # vcs
     git
     gh
-    stow
 
     # browsers
     firefox
@@ -140,16 +137,13 @@
     curl
     tree
     unzip
-    neofetch
     syncthing
     playerctl
     i2c-tools
     
     # Terminal
-    zsh
     kitty
     warp-terminal
-    btop
 
     # Games
     lutris
@@ -170,6 +164,7 @@
     hyprlock
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
+    openrgb-with-all-plugins
     waybar
     eww
     wofi
@@ -186,6 +181,10 @@
 
     # Java
     zulu8
+
+    # Screen Capture
+    grim
+    slurp
   ];
 
 
@@ -199,22 +198,15 @@
 
   # programs.vscode.enable = true;
 
-  programs.fish.enable = false;
   programs.zsh.enable = true;
-  # users.defaultUserShell = pkgs.fish;
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
 
   ########## OpenRGB ##########
   services.hardware.openrgb = {
     enable = true;
     motherboard = "amd";
   };
-  services.udev.packages = [ pkgs.openrgb ];
-  hardware.i2c.enable = true;
+  # services.udev.packages = [ pkgs.openrgb ];
+  # hardware.i2c.enable = true;
 
   ########## THEMING ##########
   fonts = {
@@ -223,8 +215,6 @@
     ];
     fontDir.enable = true;
   };
-  # console.font = "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/CaskaydiaCoveNerdFont-Bold.ttf";
-  # console.font = "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HeavyDataNerdFont-Regular.ttf";
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -239,6 +229,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
 }

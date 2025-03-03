@@ -32,7 +32,7 @@
 
   outputs = { nixpkgs, nixospkgs, home-manager, nix-colors, ... } @ inputs: {
     nixosConfigurations = {
-      nixxie = nixospkgs.lib.nixosSystem {
+      nixxie = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixos/nixxie-hardware.nix

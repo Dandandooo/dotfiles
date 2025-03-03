@@ -41,6 +41,8 @@
     packwiz
     mcrcon
 
+    qmk
+
     ### Fonts
     (nerdfonts.override { fonts = [ "MartianMono" "CascadiaCode" "HeavyData" "Hack" "Agave" "JetBrainsMono" ]; })
   ];
