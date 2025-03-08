@@ -9,4 +9,4 @@ result
 lazy-lock.json
 
 # For security reasons (secrets, passwords, etc.)
-.config/fish/fish_variables
+fish_variables
