@@ -23,7 +23,7 @@
 
   home.file = {
     ".config/hypr" = {
-      source = ../../../.config/hypr;
+      source = ../../../raw/.config/hypr;
       target = ".config/hypr";
     };
   };

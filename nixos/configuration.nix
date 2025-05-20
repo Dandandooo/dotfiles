@@ -8,10 +8,14 @@
     ];
 
   ##########  BOOT  ##########
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.efi = {
+    canTouchEfiVariables = true;
+    efiSysMountPoint = "/boot";
+  };
   boot.loader.grub = {
-    enable = false;
+    enable = true;
+    efiSupport = true;
     minegrub-theme = {
       enable = false;
       splash = "100% Flakes!";
@@ -27,6 +31,8 @@
       }];
     };
     device="nodev";
+    useOSProber = true; # detect windows
+    # device="/dev/disk/by-label/EFI";
     # device="${fileSystems."/boot".device}";
     # font="${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HeavyDataNerdFont-Regular.ttf";
   };

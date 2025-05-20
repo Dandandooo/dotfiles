@@ -27,7 +27,6 @@
                     package = null;
                 };
                 ruff.enable = true; # python
-                ruff_lsp.enable = true; # python
                 zls.enable = true; # zig
                 
                 # ts_ls.enable = true; # typescript

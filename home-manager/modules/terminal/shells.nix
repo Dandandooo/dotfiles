@@ -111,7 +111,7 @@
   };
 
   ##### MULTIPLEXING
-  programs.zellij.enable = true;
+  # programs.zellij.enable = true;
   programs.tmux = {
     enable = true;
     mouse = true;

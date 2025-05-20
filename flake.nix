@@ -28,6 +28,7 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = { nixpkgs, nixospkgs, home-manager, nix-colors, ... } @ inputs: {
@@ -35,11 +36,12 @@
       nixxie = nixospkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          nixos/nixxie-hardware.nix
+          nixos/hardware.nix
           nixos/configuration.nix
           inputs.minegrub-theme.nixosModules.default
           inputs.minegrub-world-sel-theme.nixosModules.default
           inputs.home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
           { environment.systemPackages = [
               inputs.zen-browser.packages.x86_64-linux.specific
           ]; }
@@ -60,6 +62,7 @@
         modules = [ 
           home-manager/home.nix
           home-manager/modules/macos.nix
+          inputs.stylix.homeManagerModules.stylix
         ];
         extraSpecialArgs = { inherit nix-colors; inherit inputs; };
       };

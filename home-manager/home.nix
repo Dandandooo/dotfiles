@@ -28,6 +28,36 @@
   # colorScheme = nix-colors.colorSchemes.rose-pine;
   # colorScheme = nix-colors.colorSchemes.rose-pine-moon;
 
+  stylix = {
+    enable = true;
+    autoEnable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
+    polarity = "dark";
+    image = "~/.config/wallpapers/astronaut.jpg";
+
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.caskaydia-cove;
+        name = "CaskaydiaCove Nerd Font";
+      };
+      sansSerif = {
+        package = pkgs.ubuntu-sans;
+        name = "Ubuntu";
+      };
+      serif = {
+        package = pkgs.roboto-serif;
+        name = "Roboto Serif";
+      };
+    };
+  };
+
+
   # The home.packages option allows you to install Nix packages into your environment.
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
@@ -45,7 +75,11 @@
     qmk
 
     ### Fonts
-    (nerdfonts.override { fonts = [ "MartianMono" "CascadiaCode" "HeavyData" "Hack" "Agave" "JetBrainsMono" ]; })
+    nerd-fonts.caskaydia-cove
+    nerd-fonts.martian-mono
+    nerd-fonts.heavy-data
+    nerd-fonts.agave
+    nerd-fonts.jetbrains-mono
   ];
 
   home.file = {
