@@ -1,7 +1,8 @@
 { config, pkgs, nix-colors, ... }:
 
 {
-    programs.nixvim.colorscheme = "monokai-pro-ristretto";
+    # programs.nixvim.colorscheme = "monokai-pro-ristretto";
+    programs.nixvim.colorscheme = null;
 
     programs.nixvim.extraPlugins = [
         { plugin = pkgs.vimPlugins.monokai-pro-nvim; }

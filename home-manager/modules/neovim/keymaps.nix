@@ -1,6 +1,6 @@
-{ config, ... }:
-
-{
+{ config, ... }: let
+    harpoons = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" ];
+in {
     programs.nixvim.globals = {
         mapleader = " ";
     };
@@ -27,9 +27,15 @@
         { mode = "n"; key = "<leader>gh"; action = "<cmd>Gitsigns toggle_linehl<cr>"; }
         { mode = "n"; key = "<leader>gs"; action = "<cmd>Gitsigns toggle_signs<cr>"; }
         
-        ### Harpoon defined in plugins.nix
-
         ### Whichkey
         { mode = "n"; key = "<leader>?"; action = "<cmd>Whichkey<cr>"; }
-    ];
+
+        ### Harpoon
+        { mode = "n"; key = "<leader>ha"; action.__raw = "function() require'harpoon':list():add() end"; }
+        { mode = "n"; key = "<leader>hs"; action.__raw = "function() require'harpoon'.ui:toggle_quick_menu(require'harpoon':list()) end"; }
+    ] ++
+    (map (n: 
+        ### Harpoon Tab Selection
+        { mode = "n"; key = "<C-${n}>"; action.__raw = "function() require'harpoon':list():select(${n}) end"; }
+    ) [ "1" "2" "3" "4" "5" "6" "7" "8" "9" ]);
 }

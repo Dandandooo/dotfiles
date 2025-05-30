@@ -5,7 +5,7 @@
   imports = [
     ./terminal
     ./neovim
-    ./spotify.nix
+    # ./spotify.nix
   ];
 
   home.packages = with pkgs; [

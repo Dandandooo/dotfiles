@@ -8,8 +8,7 @@
       # set fish_greeting "
       #      ________ .-./`)    .-''''-. .---.  .---.  
       #     |        |\ .-.')  / _     \|   |  |_ _|  
-      #     |   .----'/ `-' \ (`' )/`--'|   |  ( ' )  
-      #     |  _|____  `-'`\"`(_ o _).   |   '-(_{;}_) 
+      #     |   .----'/ `-' \ (`' )/`--'|   |  ( ' )  |  _|____  `-'`\"`(_ o _).   |   '-(_{;}_) 
       #     |_( )_   | .---.  (_,_). '. |      (_,_)  
       #     (_ o._)__| |   | .---.  \  :| _ _--.   | 
       #     |(_,_)     |   | \    `-'  ||( ' ) |   |  
@@ -42,7 +41,7 @@
     # autosuggestion.hightlight = "...";
     enableCompletion = true;
     syntaxHighlighting.enable = true;
-    initExtra = ''
+    initContent = ''
     # echo "\x1b[31m\n" \
     #      "  (\`-')   (\`-').-> (\`-').->\n" \
     #      "  ( OO).->( OO)_   (OO )__\n" \
@@ -105,7 +104,7 @@
   programs.btop = {
     enable = true;
     settings = {
-      color_theme = "monokai";
+      # color_theme = "monokai";
       theme_background = false;
     };
   };

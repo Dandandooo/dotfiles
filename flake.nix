@@ -2,24 +2,40 @@
   description = "Dandandooo's Dotfiles";
 
   inputs = {
-    nixospkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-colors.url = "github:misterio77/nix-colors";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nix-darwin.url = "github:LnL7/nix-darwin";
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ags.url = "github:Aylur/ags";
     matugen.url = "github:InioX/matugen";
-    
-    nixvim.url = "github:nix-community/nixvim";
 
     minegrub-theme.url = "github:Lxtharia/minegrub-theme";
     minegrub-world-sel-theme.url = "github:Lxtharia/minegrub-world-sel-theme";
+
     zen-browser.url = "github:MarceColl/zen-browser-flake";
+    firefox.url = "github:nix-community/flake-firefox-nightly";
 
     hyprcursor.url = "github:hyprwm/hyprcursor";
     hyprland.url = "github:hyprwm/hyprland";
@@ -28,27 +44,24 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    stylix.url = "github:danth/stylix";
   };
 
-  outputs = { nixpkgs, nixospkgs, home-manager, nix-colors, ... } @ inputs: {
+  outputs = { nixpkgs, stylix, home-manager, ... } @ inputs: {
     nixosConfigurations = {
-      nixxie = nixospkgs.lib.nixosSystem {
+      nixxie = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          nixos/hardware.nix
-          nixos/configuration.nix
           inputs.minegrub-theme.nixosModules.default
           inputs.minegrub-world-sel-theme.nixosModules.default
-          inputs.home-manager.nixosModules.home-manager
-          inputs.stylix.nixosModules.stylix
+          home-manager.nixosModules.home-manager
+          nixos/configuration.nix
           { environment.systemPackages = [
               inputs.zen-browser.packages.x86_64-linux.specific
           ]; }
         ];
-        specialArgs = { inherit inputs; inherit nix-colors; };
+        specialArgs = { inherit inputs; };
       };
-      applenix = nixospkgs.lib.nixosSystem {
+      applenix = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
           nixos/configuration.nix
@@ -62,9 +75,8 @@
         modules = [ 
           home-manager/home.nix
           home-manager/modules/macos.nix
-          inputs.stylix.homeManagerModules.stylix
         ];
-        extraSpecialArgs = { inherit nix-colors; inherit inputs; };
+        extraSpecialArgs = { inherit inputs; };
       };
       "dani@nixxie" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
@@ -72,7 +84,7 @@
           home-manager/home.nix
           home-manager/modules/linux
         ];
-        extraSpecialArgs = { inherit nix-colors; inherit inputs; };
+        extraSpecialArgs = { inherit inputs; };
       };
       "dani@applenix" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "aarch64-linux"; };
@@ -80,7 +92,7 @@
           home-manager/home.nix
           home-manager/modules/linux
         ];
-        extraSpecialArgs = { inherit nix-colors; inherit inputs; };
+        extraSpecialArgs = { inherit inputs; };
       };
     };
   };

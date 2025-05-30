@@ -49,7 +49,7 @@
         # copilot-cmp.enable = true;
         
         # copilot-vim.enable = true;
-        copilot-lua.enable = true;
+        # copilot-lua.enable = true;
 
 
     };

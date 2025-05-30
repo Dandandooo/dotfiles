@@ -7,6 +7,7 @@
   imports = [
     ./ags
     # ./hyprland.nix
+    ./stylix.nix
   ];
 
 
@@ -22,9 +23,18 @@
   };
 
   home.file = {
-    ".config/hypr" = {
-      source = ../../../raw/.config/hypr;
-      target = ".config/hypr";
+    # ".config/hypr" = {
+    #   source = ../../../raw/.config/hypr;
+    #   target = ".config/hypr";
+    # };
+    # Hyprpaper managed separately
+    "hyprland-config" = {
+      source = ../../../raw/.config/hypr/hyprland.conf;
+      target = ".config/hypr/hyprland.conf";
+    };
+    "hyprland-keybinds" = {
+      source = ../../../raw/.config/hypr/keybinds.conf;
+      target = ".config/hypr/keybinds.conf";
     };
   };
 

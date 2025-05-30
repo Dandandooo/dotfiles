@@ -3,8 +3,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      # /etc/nixos/hardware-configuration.nix # only works in impure ! :(((
-      # <home-manager/nixos>
+      /etc/nixos/hardware-configuration.nix # only works in impure ! :(((
     ];
 
   ##########  BOOT  ##########
@@ -25,24 +24,19 @@
       enable = true; 
       customIcons = [{
 	      name = "nixos";
-        lineTop = "NixOS";
+        lineTop = "Nixxie";
         lineBottom = "Survival Mode, No Cheats, Version: ${config.system.nixos.release}";
         imgName = "nixos";
       }];
     };
     device="nodev";
     useOSProber = true; # detect windows
-    # device="/dev/disk/by-label/EFI";
-    # device="${fileSystems."/boot".device}";
-    # font="${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HeavyDataNerdFont-Regular.ttf";
   };
   # boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 
 
   ########## NETWORKING ##########
   networking.hostName = "nixxie";
-
-  # Enable networking
   networking.networkmanager.enable = true;
 
   ########## BLUETOOTH ##########
@@ -89,6 +83,12 @@
     shell = pkgs.zsh;
   };
 
+  # home-manager = {
+  #   extraSpecialArgs = { inherit inputs; };
+  #   backupFileExtension = "backup";
+  #   users.dani = import ../home-manager/home.nix;
+  # };
+
   ########## WINDOW MANAGER ##########
   programs.hyprland = {
     enable = true;
@@ -128,7 +128,7 @@
     docker
 
     # Music
-    spotify
+    # spotify # managed by stylix
 
     # vcs
     git
@@ -138,9 +138,10 @@
     firefox
 
     # Utilities
-    wget
     curl
+    nmap
     tree
+    wget
     unzip
     syncthing
     playerctl
@@ -182,7 +183,7 @@
     dunst
 
     # File explorer
-    dolphin
+    # dolphin
 
     # Java
     zulu8
@@ -205,6 +206,9 @@
 
   programs.zsh.enable = true;
 
+  # darn british people
+  virtualisation.docker.enable = true;
+
   ########## OpenRGB ##########
   services.hardware.openrgb = {
     enable = true;
@@ -213,10 +217,14 @@
   # services.udev.packages = [ pkgs.openrgb ];
   # hardware.i2c.enable = true;
 
+  hardware.keyboard.qmk.enable = true;
+
   ########## THEMING ##########
   fonts = {
     packages = with pkgs; [
-      nerdfonts
+      nerd-fonts.caskaydia-cove
+      nerd-fonts.martian-mono
+      nerd-fonts.agave
     ];
     fontDir.enable = true;
   };
@@ -225,15 +233,6 @@
   services.openssh.enable = true;
 
   ########## NIXOS ##########
-
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
-
+  system.stateVersion = "24.11"; # no touch
 }

@@ -50,20 +50,20 @@
         };
         harpoon = {
             enable = true;
-            keymaps = {
-                addFile = "<leader>ha";
-                toggleQuickMenu = "<leader>hs";
-                cmdToggleQuickMenu = "<leader>hc";
-                navNext = "<leader>hn";
-                navPrev = "<leader>hp";
-                navFile = {
-                    "1" = "<leader>h1";
-                    "2" = "<leader>h2";
-                    "3" = "<leader>h3";
-                    "4" = "<leader>h4";
-                    "5" = "<leader>h5";
-                };
-            };
+            # keymaps = {
+            #     addFile = "<leader>ha";
+            #     toggleQuickMenu = "<leader>hs";
+            #     cmdToggleQuickMenu = "<leader>hc";
+            #     navNext = "<leader>hn";
+            #     navPrev = "<leader>hp";
+            #     navFile = {
+            #         "1" = "<leader>h1";
+            #         "2" = "<leader>h2";
+            #         "3" = "<leader>h3";
+            #         "4" = "<leader>h4";
+            #         "5" = "<leader>h5";
+            #     };
+            # };
         };
 
         telescope = {
@@ -76,7 +76,7 @@
         transparent.enable = true;
         web-devicons.enable = true;
         todo-comments.enable = true;
-        nvim-colorizer.enable = true;
+        colorizer.enable = true;
         alpha = {
             enable = true;
             layout = [
@@ -142,7 +142,7 @@
         };
         notify = {
             enable = true;
-            timeout = 3000;    
+            settings.timeout = 3000;    
         };
 
 

@@ -1,15 +1,15 @@
-{ inputs, config, pkgs, nix-colors, ... }:
+{ inputs, config, pkgs, nix-colors, lib, ... }:
 
 {
     # TODO: use nixvim
 
     imports = [
         inputs.nixvim.homeManagerModules.nixvim
-        ./colorschemes.nix
         ./plugins.nix
         ./keymaps.nix
         ./lsp.nix
-    ];
+        ./colorschemes.nix
+    ]; # ++ lib.optional (pkgs.system != "x86-64_linux") ./colorshemes.nix;
 
     # programs.neovim.enable = false;
 
