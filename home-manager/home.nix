@@ -8,7 +8,7 @@
   imports = [
     ./modules/terminal
     ./modules/neovim
-    ./modules/spotify.nix
+    # ./modules/spotify.nix
   ];
 
   # colorScheme = nix-colors.colorSchemes.gruvbox-light-medium; colorScheme = nix-colors.colorSchemes.gruvbox-light-soft;

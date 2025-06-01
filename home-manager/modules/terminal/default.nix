@@ -1,4 +1,4 @@
-{ config, pkgs, nix-colors, ... }:
+{ config, pkgs, lib, ... }:
 
 {
     imports = [
@@ -25,16 +25,24 @@
     
     home.file = {
         ".xonshrc".text = "execx($(starship init xonsh))";
-        ".config/kitty" = {
-            source = ./kitty;
-            target = ".config/kitty";
-        };
+        # ".config/kitty" = {
+        #     source = ./kitty;
+        #     target = ".config/kitty";
+        # };
     };
 
-    # This actually tanked my PC once
-    # home.sessionVariables.Path = if builtins.currentSystem == "aarch64-darwin"
-                                    # then "/opt/homebrew/bin:$PATH"
-                                    # else "$PATH";
+    programs.kitty = {
+        enable = true;
+        settings = {
+            term = "xterm-256color";
+            dynamic_background_opacity = "yes";
+            background_opacity = lib.mkForce 0.85;
+            background_blur = 64;
+
+            font_size = lib.mkDefault 15.0;
+            bold_font = "auto";
+        };
+    };
 
     home.sessionVariables = {
 

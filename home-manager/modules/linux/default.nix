@@ -7,7 +7,7 @@
   imports = [
     ./ags
     # ./hyprland.nix
-    ./stylix.nix
+    ./styles
   ];
 
 

@@ -3,7 +3,7 @@
 {
   imports = [
     inputs.stylix.homeModules.stylix
-    inputs.spicetify-nix.homeManagerModules.spicetify
+    ./spicetify.nix
   ];
 
   stylix = {
@@ -11,12 +11,9 @@
     autoEnable = true;
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/oceanicnext.yaml";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
     polarity = "dark";
-    # image = "${config.home.homeDirectory}/.config/wallpapers/forest.jpg";
-    image = ../../../raw/.config/wallpapers/rose_pine_contourline.png;
+    image = ../../../../raw/.config/wallpapers/rose_pine_contourline.png;
 
     cursor = {
       package = pkgs.bibata-cursors;
@@ -43,18 +40,12 @@
       hyprland.enable = false;
       hyprland.hyprpaper.enable = true;
       hyprpaper.enable = true;
-      starship.enable = false;
+
+      starship.enable = true;
+      spicetify.enable = true;
+      kitty.variant256Colors = true;
     };
   };
-
-  programs = {
-    spicetify = {
-      enable = true;
-      # theme.name = "bloom";
-      # theme.name = "text";
-
-    };
-  };
-
+  
   services.hyprpaper.enable = true;
 }
