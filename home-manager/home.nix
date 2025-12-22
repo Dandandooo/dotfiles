@@ -8,7 +8,7 @@
   imports = [
     ./modules/terminal
     ./modules/neovim
-    ./modules/spotify.nix
+    # ./modules/spotify.nix
   ];
 
   # colorScheme = nix-colors.colorSchemes.gruvbox-light-medium; colorScheme = nix-colors.colorSchemes.gruvbox-light-soft;
@@ -37,9 +37,6 @@
     poetry
     ghc
     uv
-
-    zulu8
-    # zulu17
 
     ### Minecraft
     packwiz
@@ -73,8 +70,10 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = "Dandandooo";
-    userEmail = "batkodanny@gmail.com";
+    settings = {
+      user.name = "Dandandooo";
+      user.email  = "batkodanny@gmail.com";
+    };
   };
   programs.gh.enable = true;
 

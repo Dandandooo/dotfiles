@@ -7,20 +7,11 @@
             enable = true;
             settings = {
                 indent.enable = true;
-                ensure_installed = [
-                    "hyprlang"
-                    "python"
-                    "rust"
-                    "fish"
-                    "lua"
-                    "nix"
-                    "zig"
-                    "cpp"
-                    "c"
-                ];
+                ensure_installed = [];
                 highlight.enable = true;
                 auto_install = true;
                 sync_install = false;
+                parser_install_dir = "~/.local/share/nvim/treesitter";
             };
             luaConfig = {
                 post = ''
@@ -39,7 +30,7 @@
         # File Management
         neo-tree = {
             enable = true;
-            autoCleanAfterSessionRestore = true;
+            settings.auto_clean_after_session_restore = true;
         };
         yazi = {
             enable = true;
@@ -79,7 +70,7 @@
         colorizer.enable = true;
         alpha = {
             enable = true;
-            layout = [
+            settings.layout = [
                 # There are 35 lines in the bonk
                 # { type = "padding"; val = ''vim.fn.floor((vim.fn.winheight(0) - 35)/2)''; }
                 { type = "padding"; val = 1; }
@@ -178,10 +169,10 @@
         gitsigns.enable = true;
         
         # Fun
-        presence-nvim = {
+        presence = {
             enable = true;
-            neovimImageText = "Why do I do this to myself?";
-            pluginManagerText = "Wasting time ricing";
+            settings.neovim_image_text = "Why do I do this to myself?";
+            settings.plugin_manager_text = "Wasting time ricing";
         };
 
     };
