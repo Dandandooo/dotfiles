@@ -5,7 +5,7 @@
   home.homeDirectory = "/home/dani";
 
   imports = [
-    ./ags
+    # ./ags
     # ./hyprland.nix
     ./stylix.nix
     ./waybar.nix

@@ -44,6 +44,10 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, stylix, home-manager, ... } @ inputs: {
@@ -57,9 +61,17 @@
           nixos/configuration.nix
           { environment.systemPackages = [
               inputs.zen-browser.packages.x86_64-linux.specific
-          ]; }
+            ]; }
         ];
         specialArgs = { inherit inputs; };
+      };
+      mixxie = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          # inputs.nix-minecraft.nixosModules.minecraft-servers
+          nixos/mixxie.nix
+        ];
+        specialArgs = inputs;
       };
       applenix = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
@@ -81,6 +93,14 @@
       "dani@nixxie" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
         modules = [ 
+          home-manager/home.nix
+          home-manager/modules/linux
+        ];
+        extraSpecialArgs = { inherit inputs; };
+      };
+      "dani@mixxie" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { system = "x86_64-linux"; };
+        modules = [
           home-manager/home.nix
           home-manager/modules/linux
         ];
