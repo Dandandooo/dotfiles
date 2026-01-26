@@ -11,7 +11,7 @@ in {
     enable = true;
     theme = lib.mkDefault spicePkgs.themes.text;
     wayland = true;
-    colorScheme = lib.mkDefault "RosePine";
+    colorScheme = lib.mkDefault "CatppuccinMocha";
   };
 }
 

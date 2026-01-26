@@ -36,12 +36,15 @@
     rustup
     poetry
     ghc
+    zig
     uv
 
     zulu8
+    tailscale
     # zulu17
 
     ### Minecraft
+    prismlauncher
     packwiz
     mcrcon
 
@@ -60,24 +63,61 @@
     nerd-fonts.profont
     nerd-fonts.hurmit
     nerd-fonts.agave
+    google-fonts
+    scientifica
+    # (google-fonts.override { fonts = [ 
+    #   "Fira Code"
+    #   "Kablammo"
+    #   "Roboto"
+    #   "Modak"
+    #   "Moiri"
+    #   "Rubik"
+    #   "Rubik Puddles"
+    # ]; })
   ];
 
+
   home.file = {
-    ".config/wallpapers" = {
+    wallpapers = {
       source = ../raw/.config/wallpapers;
       target = ".config/wallpapers";
+    };
+    fonts = {
+      source = ../raw/.config/fontconfig/fonts.conf;
+      target = ".config/fontconfig/fonts.conf";
     };
   };
 
   # Git configuration
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-    userName = "Dandandooo";
-    userEmail = "batkodanny@gmail.com";
+  programs = {
+    git = {
+      enable = true;
+      lfs.enable = true;
+      userName = "Dandandooo";
+      userEmail = "batkodanny@gmail.com";
+      difftastic.enable = true;
+      extraConfig = {
+        credential.helper = "store";
+      };
+    };
+    gh = {
+      enable = true;
+      settings = {
+        git_protocol = "ssh";
+        editor = "nvim";
+      };
+      gitCredentialHelper.enable = true;
+    };
+    gh-dash = {
+      enable = true;
+    };
   };
-  programs.gh.enable = true;
 
+  programs.zed-editor.enable = true;
+
+  home.sessionPath = [
+    "/home/dani/.local/share/JetBrains/Toolbox/scripts"
+  ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

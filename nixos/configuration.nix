@@ -32,8 +32,36 @@
     device="nodev";
     useOSProber = true; # detect windows
   };
-  # boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = lib.mkBefore [ 
+    "amd_pstate=active"
+    "i2c-dev" "i2c-piix4" 
+    "btusb"
+  ];
+  boot.kernelParams = [
+    "acpi_enforce_resources=lax"
+  ];
+
+  hardware.enableAllFirmware = true;
+
+  powerManagement.cpuFreqGovernor = "schedutil";
+  hardware.cpu.amd.updateMicrocode = true;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+      rocmPackages.half
+      rocmPackages.triton
+    ];
+  };
+  hardware.amdgpu = {
+    opencl.enable = true;
+  };
+
+  # boot.kernelModules = lib.mkBefore (config.boot.kernelModules ++ [ "amd_pstate=active" ]);
 
   ########## NETWORKING ##########
   networking.hostName = "nixxie";
@@ -117,15 +145,32 @@
 
   nixpkgs.config.allowUnfree = true; 
   environment.systemPackages = with pkgs; [
-    # Text Editors
-    vim
-
-    # IDEs
-    jetbrains-toolbox
-    vscode
-
     # Development
+    jetbrains-toolbox
+    nix-direnv
+    direnv
+    vscode
+    # (vscode-fhs.override {
+    #   additionalPkgs = pkgs: with pkgs; [
+    #     # Shared
+    #     gcc
+    #     glibc.dev
+    #     gcc.cc
+    #
+    #     # C / C++
+    #
+    #     # Rust
+    #     rustup
+    #
+    #     # Zig
+    #     zig
+    #     zls
+    #
+    #   ];
+    # )
+        
     docker
+    vim
 
     # Music
     # spotify # managed by stylix
@@ -143,6 +188,7 @@
     tree
     wget
     unzip
+    killall
     syncthing
     playerctl
     i2c-tools
@@ -152,7 +198,6 @@
     warp-terminal
 
     # Games
-    lutris
     prismlauncher
     protonup
 
@@ -182,9 +227,6 @@
     # Notifications
     dunst
 
-    # File explorer
-    # dolphin
-
     # Java
     zulu8
 
@@ -199,10 +241,15 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     gamescopeSession.enable = true;
+    extraCompatPackages = [ pkgs.proton-ge-bin ];
   };
   programs.gamemode.enable = true;
 
-  # programs.vscode.enable = true;
+  # apparently not a thing until 25.11
+  # programs.vscode = {
+  #   enable = true;
+  #   package = pkgs.vscode-fhs;
+  # };
 
   programs.zsh.enable = true;
 
@@ -229,10 +276,41 @@
     fontDir.enable = true;
   };
 
+  ####### DEVELOPMENT #######
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.tailscale.enable = true;
 
   ########## NIXOS ##########
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib  # libstdc++
+      zlib              # compression
+      fuse3             # appimages/fs tools
+      icu               # international components for unicode
+      nss               # network security services
+      openssl           # cryptography
+      curl              # network transfer
+      expat             # xml parsing
+
+      libGL             # for numpy/pandas/scipy?
+
+      llvmPackages.libclang.lib
+      glibc.dev
+      libgcc.lib
+      libxcrypt-legacy
+
+      glib
+      gtk3
+      libxkbcommon
+      xorg.libxcb
+      libdrm
+      mesa
+      alsa-lib
+    ];
+  };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "24.11"; # no touch
 }
