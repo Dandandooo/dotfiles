@@ -4,7 +4,7 @@
     # TODO: use nixvim
 
     imports = [
-        inputs.nixvim.homeManagerModules.nixvim
+        inputs.nixvim.homeModules.nixvim
         ./plugins.nix
         ./keymaps.nix
         ./lsp.nix

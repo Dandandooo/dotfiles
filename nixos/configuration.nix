@@ -54,7 +54,6 @@
     extraPackages = with pkgs; [
       rocmPackages.clr.icd
       rocmPackages.half
-      rocmPackages.triton
     ];
   };
   hardware.amdgpu = {
@@ -199,7 +198,7 @@
 
     # Games
     prismlauncher
-    protonup
+    protonup-ng
 
     # Social
     discord

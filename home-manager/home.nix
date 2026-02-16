@@ -33,8 +33,9 @@
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     ### Devtools
-    rustup
+    # rustup # fails to build. fix later
     poetry
+    codex
     ghc
     zig
     uv
@@ -42,6 +43,7 @@
     zulu8
     tailscale
     # zulu17
+    dconf
 
     ### Minecraft
     prismlauncher
@@ -93,12 +95,15 @@
     git = {
       enable = true;
       lfs.enable = true;
-      userName = "Dandandooo";
-      userEmail = "batkodanny@gmail.com";
-      difftastic.enable = true;
-      extraConfig = {
+      settings = {
+        user.name = "Dandandooo";
+        user.email = "batkodanny@gmail.com";
         credential.helper = "store";
       };
+    };
+    difftastic = {
+      enable = true;
+      git.enable = true;
     };
     gh = {
       enable = true;
