@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, stylix, ... }:
+{ config, pkgs, nixpkgs, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -9,25 +9,8 @@
     ./modules/terminal
     ./modules/neovim
     # ./modules/spotify.nix
+    inputs.sops-nix.homeManagerModules.sops
   ];
-
-  # colorScheme = nix-colors.colorSchemes.gruvbox-light-medium; colorScheme = nix-colors.colorSchemes.gruvbox-light-soft;
-  # colorScheme = nix-colors.colorSchemes.oxocarbon-light;
-
-  # colorScheme = nix-colors.colorSchemes.atlas;
-  # colorScheme = nix-colors.colorSchemes.bespin;
-  # colorScheme = nix-colors.colorSchemes.dracula;
-  # colorScheme = nix-colors.colorSchemes.gruvbox-dark-medium;
-  # colorScheme = nix-colors.colorSchemes.gruvbox-dark-pale;
-  # colorScheme = nix-colors.colorSchemes.gruvbox-dark-soft;
-  # colorScheme = nix-colors.colorSchemes.kanagawa;
-  # colorScheme = nix-colors.colorSchemes.monokai;
-  # colorScheme = nix-colors.colorSchemes.oxocarbon-dark;
-  # colorScheme = nix-colors.colorSchemes.papercolor-dark;
-  # colorScheme = nix-colors.colorSchemes.rose-pine;
-  # colorScheme = nix-colors.colorSchemes.rose-pine-moon;
-
-
 
   # The home.packages option allows you to install Nix packages into your environment.
   nixpkgs.config.allowUnfree = true;
@@ -35,7 +18,6 @@
     ### Devtools
     # rustup # fails to build. fix later
     poetry
-    codex
     ghc
     zig
     uv
@@ -65,17 +47,19 @@
     nerd-fonts.profont
     nerd-fonts.hurmit
     nerd-fonts.agave
-    google-fonts
     scientifica
-    # (google-fonts.override { fonts = [ 
-    #   "Fira Code"
-    #   "Kablammo"
-    #   "Roboto"
-    #   "Modak"
-    #   "Moiri"
-    #   "Rubik"
-    #   "Rubik Puddles"
-    # ]; })
+    (google-fonts.override { fonts = [ 
+      "Fira Code"
+      "Kablammo"
+      "Lexend"
+      "Modak"
+      "Moiri"
+      "Rajdhani"
+      "Roboto"
+      "Roboto Slab"
+      "Rubik"
+      "Rubik Puddles"
+    ]; })
   ];
 
 
@@ -89,6 +73,21 @@
       target = ".config/fontconfig/fonts.conf";
     };
   };
+
+  sops = {
+    age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+
+    defaultSopsFile = ./sops.yaml;
+    defaultSopsFormat = "yaml";
+
+    # FIXME: doesn't work yet
+
+    # secrets.test = {
+    #   path = "%r/test.txt";
+    # };
+  };
+
+  # systemd.services."
 
   # Git configuration
   programs = {

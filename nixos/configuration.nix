@@ -255,6 +255,15 @@
   # darn british people
   virtualisation.docker.enable = true;
 
+  # Auto upgrade & cleanup
+  system.autoUpgrade = { enable = true; dates = "weekly"; };
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   nix.gc.options
+  # };
+  nix.settings.auto-optimise-store = true;
+
   ########## OpenRGB ##########
   services.hardware.openrgb = {
     enable = true;

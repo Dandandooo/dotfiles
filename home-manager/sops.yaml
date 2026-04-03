@@ -1,0 +1,8 @@
+keys:
+  - &nixxie age1j42gq69c5f7lm84jxz3n2n5y5qkeudcfy4kg5eynwddy35xthshs0qchyy
+
+creation_rules:
+  - path_regex: .taini/taini.yaml$
+    key_groups:
+      - age:
+        - *nixxie

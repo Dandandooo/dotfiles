@@ -47,4 +47,22 @@
     home.sessionVariables = {
 
     };
+
+    programs.codex = {
+        enable = true;
+        settings = {
+            personality = "pragmatic";
+            features = {
+                rmcp_client = true;
+            };
+
+            mcp_servers = {
+                context7 = {
+                    command = "${pkgs.nodejs}/bin/npx";
+                    args = [ "-y" "@upstash/context7-mcp@latest" ];
+                };
+            };
+
+        };
+    };
 }

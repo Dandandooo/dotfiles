@@ -48,9 +48,14 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, stylix, home-manager, ... } @ inputs: {
+  outputs = { nixpkgs, sops-nix, stylix, home-manager, ... } @ inputs: {
     nixosConfigurations = {
       nixxie = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
