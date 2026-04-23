@@ -12,7 +12,7 @@
         xonsh
 
         ### System information
-        neofetch
+        fastfetch
         onefetch
 
         ### File Utility
@@ -21,14 +21,12 @@
         tree
         stow
         cloc
+
+        codex
     ];
     
     home.file = {
         ".xonshrc".text = "execx($(starship init xonsh))";
-        # ".config/kitty" = {
-        #     source = ./kitty;
-        #     target = ".config/kitty";
-        # };
     };
 
     programs.kitty = {
@@ -48,21 +46,21 @@
 
     };
 
-    programs.codex = {
-        enable = true;
-        settings = {
-            personality = "pragmatic";
-            features = {
-                rmcp_client = true;
-            };
-
-            mcp_servers = {
-                context7 = {
-                    command = "${pkgs.nodejs}/bin/npx";
-                    args = [ "-y" "@upstash/context7-mcp@latest" ];
-                };
-            };
-
-        };
-    };
+    # programs.codex = {
+    #     enable = true;
+    #     settings = {
+    #         personality = "pragmatic";
+    #         features = {
+    #             rmcp_client = true;
+    #         };
+    #
+    #         mcp_servers = {
+    #             context7 = {
+    #                 command = "${pkgs.nodejs}/bin/npx";
+    #                 args = [ "-y" "@upstash/context7-mcp@latest" ];
+    #             };
+    #         };
+    #
+    #     };
+    # };
 }

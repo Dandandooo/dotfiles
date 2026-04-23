@@ -7,4 +7,4 @@ in {
     };
     
     # change hyprland settings if necessary
-};
+}

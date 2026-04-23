@@ -1,11 +1,11 @@
-{ inputs, pkgs, ... }: let
+{ inputs, pkgs, lib, config, ... }: let
 
     hypr-plugins = inputs.hyprland-plugins.packages.${pkgs.system};
 
 in {
-
     imports = [
-        ./cursor.nix
+        ./keybinds.nix
+        # ./cursor.nix # managed by stylix now
     ];
 
     wayland.windowManager.hyprland = {
@@ -23,24 +23,28 @@ in {
             # hypr-plugins.borders-plus-plus
         ];
 
-        settings = let
-            terminal = "${pkgs.kitty}/bin/kitty";
-            alt-terminal = "${pkgs.warp-terminal}/bin/warp-terminal";
+        settings = {
+            monitor = [
+                "DP-3,highres@highrr,0x0,1.5,vrr,1"
+                "HDMI-A-1,highres@highrr,2560x0,1.5,vrr,1"
+            ];
 
-            browser = "zen";
-            alt-browser = let
-                pkg = config.programs.firefox.package;
-                name = "firefox-nightly";
-            in "${pkg}/bin/${name}";
+            workspace = [
+                "1,monitor:DP-3"
+                "3,monitor:DP-3"
+                "5,monitor:DP-3"
+                "7,monitor:DP-3"
+                "9,monitor:DP-3"
+                "2,monitor:HDMI-A-1"
+                "4,monitor:HDMI-A-1"
+                "6,monitor:HDMI-A-1"
+                "8,monitor:HDMI-A-1"
+                "10,monitor:HDMI-A-1"
+            ];
 
-            app-search = "${pkgs.wofi}/bin/wofi";
-
-            brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-            pamixer = "${pkgs.pamixer}/bin/pamixer";
-        in {
             exec-once = [
                 "hyprpaper"
-                "openrgb --start-minimized"
+                "waybar"
             ];
 
             general = {
@@ -51,7 +55,7 @@ in {
                 "col.active_border" = "rgba(f9cc6cee) rgba(fd6883ee) 45deg";
                 "col.inactive_border" = "rgba(595959aa)";
 
-                layout = "dwindle";
+                layout = "master";
 
                 allow_tearing = false;
             };
@@ -60,42 +64,40 @@ in {
                 rounding = 17;
 
                 blur = {
-                    enabled = false;
+                    enabled = true;
                     size = 3;
                     passes = 2;
-                    new_optimizations = true;
                 };
-
-                shadow.enabled = true;
             };
             
             input = {
-                kb_variant = "us";
+                kb_layout = "us";
 
-                follow_mouse = true;
+                follow_mouse = 1;
+                mouse_refocus = false;
                 
                 accel_profile = "flat";
                 force_no_accel = true;
-                natural_scroll = false;
                 touchpad.natural_scroll = true;
 
-                sensitivity = 0.0;
+                sensitivity = 0;
             };
 
             animations = {
                 enabled = true;
 
                 bezier = [
-                    "glide, 0.05, 0.9, 0.1, 1.05"
+                    "myBezier, 0.05, 0.9, 0.1, 1.05"
                 ];
 
                 animation = [
-                    "windows, 1, 5, glide"
+                    "windows, 1, 5, myBezier"
                     "windowsOut, 1, 7, default, popin 80%"
                     "border, 1, 10, default"
                     "borderangle, 1, 8, default"
                     "fade, 1, 7, default"
                     "workspaces, 1, 6, default"
+                    "specialWorkspace, 1, 4, default, slidefadevert -100%"
                 ];
             };
 
@@ -104,38 +106,35 @@ in {
                 preserve_split = true;
             };
 
-            gestures = {
-                workspace_swipe = true;
+            master = {};
+
+            misc = {
+                force_default_wallpaper = -1;
+                vrr = true;
+                vfr = true;
             };
 
             xwayland = {
-                force_zero_scaling = false;
+                force_zero_scaling = true;
             };
 
             env = [
                 "GDK_BACKEND, wayland"
+                "GDK_SCALE, 1.5"
             ];
 
-            bind = [
-                "SUPER, Q, exec, ${terminal}"
-                "SUPER ALT, Q, exec, ${alt-terminal}"
-                "SUPER, B, exec, ${browser}"
-                "SUPER ALT, B, exec, ${alt-browser}"
-                "SUPER, D, exec, discord"
-                "SUPER, G, exec, steam"
+            windowrule = [
+                "match:class (wofi), stay_focused 1"
+                "match:class (steap_app_291550), fullscreen 1"
+                "match:class (firefox), match:title (^Picture-in-Picture$), move (monitor_w-window_w-10) (monitor_h-window_h-10)"
+                "match:class (firefox), match:title (^Picture-in-Picture$), opacity 0.5 1.0"
+                "match:class (firefox), match:title (^Picture-in-Picture$), persistent_size 1"
+                "match:class (firefox), match:title (^Picture-in-Picture$), no_initial_focus 1"
+                "match:class (firefox), match:title (^Picture-in-Picture$), content video"
+                "match:class (firefox), match:title (^Picture-in-Picture$), no_blur 1"
+                "match:class (firefox), match:title (^Picture-in-Picture$), float 1"
+                "match:class (firefox), match:title (^Picture-in-Picture$), pin 1"
             ];
-
-            binde = [
-                ",XF86MonBrightnessUp,exec,${brightnessctl} s 5%+"
-                ",XF86MonBrightnessDown,exec,${brightnessctl} s 5%-"
-                ",XF86AudioRaiseVolume,exec,${pamixer} -i 5"
-                ",XF86AudioLowerVolume,exec,${pamixer} -d 5"
-                ",XF86AudioMute,exec,${pamixer} -t"
-            ];
-
-            # "plugins:hyprtrails" = {
-            #     enable = true;
-            # };
         };
     };
 
@@ -146,7 +145,7 @@ in {
         in {
             preload = [ wallpaper ];
             wallpaper = [ ",${wallpaper}" ];
-            splash = true;
+            splash = lib.mkForce true;
         };
     };
 

@@ -207,7 +207,6 @@
     # Productivity
     obsidian
     zoom-us
-    boxfs
 
     # Desktop
     hyprpaper
