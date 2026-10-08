@@ -48,6 +48,7 @@
       hyprland.enable = false;
       hyprland.hyprpaper.enable = true;
       hyprpaper.enable = true;
+      rofi.enable = false; # rofi unused; upstream target sets deprecated programs.rofi.font
 
       starship.enable = true;
       spicetify.enable = true;

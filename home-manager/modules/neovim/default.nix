@@ -20,6 +20,8 @@
 
     programs.nixvim = {
         enable = true;
+        # we make nixvim follow our nixpkgs; say so explicitly to silence the warning
+        nixpkgs.source = inputs.nixpkgs;
 
         opts = {
             smarttab = true;
