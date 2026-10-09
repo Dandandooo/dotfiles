@@ -1,25 +1,15 @@
 { inputs, config, pkgs, nix-colors, ... }:
 
 {
+    programs.nixvim.filetype.pattern.".*/hypr/.*%.conf" = "hyprlang";
+
     programs.nixvim.plugins = {
         # Syntax
         treesitter = {
             enable = true;
-            settings = {
-                indent.enable = true;
-                ensure_installed = [];
-                highlight.enable = true;
-                auto_install = true;
-                sync_install = false;
-                parser_install_dir = "~/.local/share/nvim/treesitter";
-            };
-            luaConfig = {
-                post = ''
-                    vim.filetype.add({
-                        pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
-                    })
-                '';
-            };
+            # grammars are installed by nix (grammarPackages defaults to all)
+            highlight.enable = true;
+            indent.enable = true;
         };
         treesitter-context.enable = true;
         rainbow-delimiters.enable = true;

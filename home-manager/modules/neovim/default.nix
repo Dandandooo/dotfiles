@@ -20,8 +20,8 @@
 
     programs.nixvim = {
         enable = true;
-        # we make nixvim follow our nixpkgs; say so explicitly to silence the warning
-        nixpkgs.source = inputs.nixpkgs;
+        # reuse home-manager's pkgs (same nixpkgs via follows, and inherits allowUnfree)
+        nixpkgs.useGlobalPackages = true;
 
         opts = {
             smarttab = true;
