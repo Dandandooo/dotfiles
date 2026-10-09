@@ -62,6 +62,7 @@
     firefox = {
       enable = true;
       profiles.default.extensions.force = true;
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
     };
     vesktop.enable = true;
   };

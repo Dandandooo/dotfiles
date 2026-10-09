@@ -99,6 +99,7 @@
         user.email = "batkodanny@gmail.com";
         credential.helper = "store";
       };
+      signing.format = null;
     };
     difftastic = {
       enable = true;

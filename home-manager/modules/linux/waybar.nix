@@ -1,5 +1,38 @@
-{ config, lib, ... }: let
+{ config, lib, pkgs, ... }: let
+  # Long-running loop using only bash builtins, so nothing is forked per tick.
+  # CPU: RAPL package energy counter (made readable by a udev rule in nixos/configuration.nix).
+  # GPU: amdgpu hwmon average power.
+  powerScript = pkgs.writeShellScript "waybar-power" ''
+    rapl=/sys/class/powercap/intel-rapl:0
+    gpu=
+    for f in /sys/bus/pci/devices/0000:09:00.0/hwmon/hwmon*/power1_average; do
+      [[ -r $f ]] && gpu=$f
+    done
+    read -r max < "$rapl/max_energy_range_uj"
+    exec {sleepfd}<> <(:)
 
+    prev_e=
+    while :; do
+      now=''${EPOCHREALTIME/./}
+      e=
+      [[ -r $rapl/energy_uj ]] && read -r e < "$rapl/energy_uj"
+      cpu=0
+      if [[ -n $e && -n $prev_e ]]; then
+        de=$(( e - prev_e ))
+        (( de < 0 )) && de=$(( de + max ))
+        cpu=$(( de * 10 / (now - prev_t) ))  # deciwatts
+      fi
+      prev_e=$e prev_t=$now
+
+      g=0
+      [[ -n $gpu ]] && read -r g < "$gpu" && g=$(( g / 100000 ))  # µW -> dW
+
+      t=$(( cpu + g ))
+      printf '{"text":"%d.%dW","tooltip":"CPU %d.%dW\\nGPU %d.%dW"}\n' \
+        $((t/10)) $((t%10)) $((cpu/10)) $((cpu%10)) $((g/10)) $((g%10))
+      read -t 1 -u $sleepfd
+    done
+  '';
 in {
   programs.waybar = {
     enable = true;      
@@ -20,6 +53,7 @@ in {
           "cpu"
           "custom/gpu"
           "memory"
+          "custom/power"
           "custom/sep"
           "custom/sleep"
           "clock" 
@@ -42,6 +76,12 @@ in {
           format = "󰢮 {}%";
           return-type = "";
           interval = 2;
+        };
+
+        "custom/power" = {
+          exec = "${powerScript}";
+          return-type = "json";
+          format = "󱐋 {}";
         };
 
         memory = {

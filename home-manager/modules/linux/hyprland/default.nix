@@ -102,7 +102,6 @@ in {
             };
 
             dwindle = {
-                pseudotile = true;
                 preserve_split = true;
             };
 
@@ -111,7 +110,6 @@ in {
             misc = {
                 force_default_wallpaper = -1;
                 vrr = true;
-                vfr = true;
             };
 
             xwayland = {

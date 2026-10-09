@@ -10,7 +10,7 @@
             "$mainMod, F, togglefloating,"
             "$mainMod SHIFT, F, fullscreen"
             "$mainMod, P, pseudo,"
-            "$mainMod, J, togglesplit,"
+            "$mainMod, J, layoutmsg, togglesplit"
             "$mainMod, K, killactive"
 
             "$mainMod, Q, exec, ${pkgs.kitty}/bin/kitty"

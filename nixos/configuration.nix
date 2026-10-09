@@ -268,6 +268,10 @@
     enable = true;
     motherboard = "amd";
   };
+  # Let users read the RAPL energy counter (waybar power indicator).
+  services.udev.extraRules = ''
+    SUBSYSTEM=="powercap", ACTION=="add", RUN+="${pkgs.coreutils}/bin/chmod a+r /sys%p/energy_uj"
+  '';
   # services.udev.packages = [ pkgs.openrgb ];
   # hardware.i2c.enable = true;
 

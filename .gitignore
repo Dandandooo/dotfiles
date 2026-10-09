@@ -5,6 +5,7 @@ result
 #flake.lock
 
 # Misc
+.claude/
 *.log
 lazy-lock.json
 

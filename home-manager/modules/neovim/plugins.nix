@@ -169,11 +169,11 @@
         gitsigns.enable = true;
         
         # Fun
-        presence = {
-            enable = true;
-            settings.neovim_image_text = "Why do I do this to myself?";
-            settings.plugin_manager_text = "Wasting time ricing";
-        };
+        # presence = {
+        #     enable = true;
+        #     settings.neovim_image_text = "Why do I do this to myself?";
+        #     settings.plugin_manager_text = "Wasting time ricing";
+        # };
 
     };
 }

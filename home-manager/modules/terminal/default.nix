@@ -22,6 +22,8 @@
         stow
         cloc
 
+        ### Vibes
+        claude-code
         codex
     ];
     
@@ -39,6 +41,9 @@
 
             font_size = lib.mkDefault 15.0;
             bold_font = "auto";
+
+            # kitty newer than 0.46.2 restores its saved "maximized" state on launch, which covers other tiled windows
+            remember_window_size = "no";
         };
     };
 

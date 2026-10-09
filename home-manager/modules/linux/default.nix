@@ -1,4 +1,4 @@
-{config, pkgs, inputs, ...}:
+{config, pkgs, inputs, lib, ...}:
 
 {
 
@@ -44,5 +44,8 @@
       target = ".local/share/PrismLauncher/themes/Kanagawa";
     };
   };
+
+  # Maintain legacy
+  gtk.gtk4.theme = lib.mkDefault config.gtk.theme;
 
 }
