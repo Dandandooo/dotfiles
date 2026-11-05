@@ -129,7 +129,9 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
-    XDG_DATA_DIRS = "$XDG_DATA_DIRS:${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-46.0/";
+    # List form: NixOS merges this with the profile dirs. A "$XDG_DATA_DIRS" self-reference
+    # is never expanded by pam_env, ends up literal, and segfaults nvim 0.12 on startup.
+    XDG_DATA_DIRS = [ "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}" ];
   };
 
   # For Screen sharing
