@@ -47,6 +47,7 @@
     nerd-fonts.profont
     nerd-fonts.hurmit
     nerd-fonts.agave
+    maple-mono.NF
     scientifica
     (google-fonts.override { fonts = [ 
       "Fira Code"
