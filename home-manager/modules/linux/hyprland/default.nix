@@ -10,6 +10,7 @@ in {
 
     wayland.windowManager.hyprland = {
         enable = true;
+        configType = "lua";
         systemd = {
             enable = false;
             extraCommands = lib.mkBefore [
@@ -23,117 +24,98 @@ in {
             # hypr-plugins.borders-plus-plus
         ];
 
-        settings = {
-            monitor = [
-                "DP-3,highres@highrr,0x0,1.5,vrr,1"
-                "HDMI-A-1,highres@highrr,2560x0,1.5,vrr,1"
-            ];
+        extraConfig = ''
+            hl.monitor({ output = "DP-3",     mode = "highres@highrr", position = "0x0",    scale = 1.5, vrr = 2 })
+            hl.monitor({ output = "HDMI-A-1", mode = "highres@highrr", position = "2560x0", scale = 1.5, vrr = 2 })
 
-            workspace = [
-                "1,monitor:DP-3"
-                "3,monitor:DP-3"
-                "5,monitor:DP-3"
-                "7,monitor:DP-3"
-                "9,monitor:DP-3"
-                "2,monitor:HDMI-A-1"
-                "4,monitor:HDMI-A-1"
-                "6,monitor:HDMI-A-1"
-                "8,monitor:HDMI-A-1"
-                "10,monitor:HDMI-A-1"
-            ];
+            -- odd workspaces on DP-3, even on HDMI-A-1
+            for i = 1, 10 do
+                hl.workspace_rule({ workspace = tostring(i), monitor = (i % 2 == 1) and "DP-3" or "HDMI-A-1" })
+            end
 
-            exec-once = [
-                "hyprpaper"
-                "waybar"
-            ];
+            hl.on("hyprland.start", function()
+                hl.exec_cmd("hyprpaper")
+                hl.exec_cmd("waybar")
+            end)
 
-            general = {
-                gaps_in = 5;
-                gaps_out = 10;
-                border_size = 3;
+            hl.env("GDK_BACKEND", "wayland")
+            hl.env("GDK_SCALE", "1.5")
 
-                "col.active_border" = "rgba(f9cc6cee) rgba(fd6883ee) 45deg";
-                "col.inactive_border" = "rgba(595959aa)";
+            hl.config({
+                general = {
+                    gaps_in = 5,
+                    gaps_out = 10,
+                    border_size = 3,
 
-                layout = "master";
+                    col = {
+                        active_border = { colors = { "rgba(f9cc6cee)", "rgba(fd6883ee)" }, angle = 45 },
+                        inactive_border = "rgba(595959aa)",
+                    },
 
-                allow_tearing = false;
-            };
+                    layout = "master",
 
-            decoration = {
-                rounding = 17;
+                    allow_tearing = false,
+                },
 
-                blur = {
-                    enabled = true;
-                    size = 3;
-                    passes = 2;
-                };
-            };
-            
-            input = {
-                kb_layout = "us";
+                decoration = {
+                    rounding = 17,
 
-                follow_mouse = 1;
-                mouse_refocus = false;
-                
-                accel_profile = "flat";
-                force_no_accel = true;
-                touchpad.natural_scroll = true;
+                    blur = {
+                        enabled = true,
+                        size = 3,
+                        passes = 2,
+                    },
+                },
 
-                sensitivity = 0;
-            };
+                input = {
+                    kb_layout = "us",
 
-            animations = {
-                enabled = true;
+                    follow_mouse = 1,
+                    mouse_refocus = false,
 
-                bezier = [
-                    "myBezier, 0.05, 0.9, 0.1, 1.05"
-                ];
+                    accel_profile = "flat",
+                    force_no_accel = true,
+                    touchpad = { natural_scroll = true },
 
-                animation = [
-                    "windows, 1, 5, myBezier"
-                    "windowsOut, 1, 7, default, popin 80%"
-                    "border, 1, 10, default"
-                    "borderangle, 1, 8, default"
-                    "fade, 1, 7, default"
-                    "workspaces, 1, 6, default"
-                    "specialWorkspace, 1, 4, default, slidefadevert -100%"
-                ];
-            };
+                    sensitivity = 0,
+                },
 
-            dwindle = {
-                preserve_split = true;
-            };
+                animations = { enabled = true },
 
-            master = {};
+                dwindle = { preserve_split = true },
 
-            misc = {
-                force_default_wallpaper = -1;
-                vrr = true;
-            };
+                misc = {
+                    force_default_wallpaper = -1,
+                    vrr = 2, -- 2 = adaptive sync only in fullscreen apps (1 = always, causes desktop refresh swings)
+                },
 
-            xwayland = {
-                force_zero_scaling = true;
-            };
+                xwayland = { force_zero_scaling = true },
+            })
 
-            env = [
-                "GDK_BACKEND, wayland"
-                "GDK_SCALE, 1.5"
-            ];
+            hl.curve("myBezier", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
 
-            windowrule = [
-                "match:class (wofi), stay_focused 1"
-                "match:class (steap_app_291550), fullscreen 1"
-                "match:class (firefox), match:title (^Picture-in-Picture$), move (monitor_w-window_w-10) (monitor_h-window_h-10)"
-                "match:class (firefox), match:title (^Picture-in-Picture$), opacity 0.5 1.0"
-                "match:class (firefox), match:title (^Picture-in-Picture$), persistent_size 1"
-                "match:class (firefox), match:title (^Picture-in-Picture$), no_initial_focus 1"
-                "match:class (firefox), match:title (^Picture-in-Picture$), content video"
-                "match:class (firefox), match:title (^Picture-in-Picture$), no_blur 1"
-                "match:class (firefox), match:title (^Picture-in-Picture$), float 1"
-                "match:class (firefox), match:title (^Picture-in-Picture$), pin 1"
-            ];
-        };
+            hl.animation({ leaf = "windows",          enabled = true, speed = 5,  bezier = "myBezier" })
+            hl.animation({ leaf = "windowsOut",       enabled = true, speed = 7,  bezier = "default", style = "popin 80%" })
+            hl.animation({ leaf = "border",           enabled = true, speed = 10, bezier = "default" })
+            hl.animation({ leaf = "borderangle",      enabled = true, speed = 8,  bezier = "default" })
+            hl.animation({ leaf = "fade",             enabled = true, speed = 7,  bezier = "default" })
+            hl.animation({ leaf = "workspaces",       enabled = true, speed = 6,  bezier = "default" })
+            hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 4,  bezier = "default", style = "slidefadevert -100%" })
+
+            hl.window_rule({ match = { class = "wofi" }, stay_focused = true })
+            hl.window_rule({ match = { class = "steap_app_291550" }, fullscreen = true })
+            hl.window_rule({
+                match = { class = "firefox", title = "^Picture-in-Picture$" },
+                move = "(monitor_w-window_w-10) (monitor_h-window_h-10)",
+                opacity = "0.5 1.0",
+                persistent_size = true,
+                no_initial_focus = true,
+                content = "video",
+                no_blur = true,
+                float = true,
+                pin = true,
+            })
+        '';
     };
 
     services.hyprpaper = {

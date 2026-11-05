@@ -1,85 +1,67 @@
 { pkgs, ... }:
 
 {
-    wayland.windowManager.hyprland.settings = {
-        "$mainMod" = "SUPER";
+    wayland.windowManager.hyprland.extraConfig = ''
+        local mainMod = "SUPER"
 
-        bind = [
-            "$mainMod, END, exit,"
+        local function bind(keys, dispatcher, opts)
+            hl.bind(mainMod .. " + " .. keys, dispatcher, opts)
+        end
+        local function exec(cmd) return hl.dsp.exec_cmd(cmd) end
 
-            "$mainMod, F, togglefloating,"
-            "$mainMod SHIFT, F, fullscreen"
-            "$mainMod, P, pseudo,"
-            "$mainMod, J, layoutmsg, togglesplit"
-            "$mainMod, K, killactive"
+        bind("END", hl.dsp.exit())
 
-            "$mainMod, Q, exec, ${pkgs.kitty}/bin/kitty"
-            "$mainMod ALT, Q, exec, ${pkgs.warp-terminal}/bin/warp-terminal"
+        bind("F", hl.dsp.window.float({ action = "toggle" }))
+        bind("SHIFT + F", hl.dsp.window.fullscreen())
+        bind("P", hl.dsp.window.pseudo())
+        bind("J", hl.dsp.layout("togglesplit"))
+        bind("K", hl.dsp.window.close())
 
-            "$mainMod, B, exec, ${pkgs.firefox}/bin/firefox"
-            "$mainMod ALT, B, exec, zen"
+        bind("Q", exec("${pkgs.kitty}/bin/kitty"))
+        bind("ALT + Q", exec("${pkgs.warp-terminal}/bin/warp-terminal"))
 
-            "$mainMod, M, exec, spotify"
+        bind("B", exec("${pkgs.firefox}/bin/firefox"))
+        bind("ALT + B", exec("zen"))
 
-            "$mainMod, R, exec, ${pkgs.wofi}/bin/wofi --show drun"
+        bind("M", exec("spotify"))
 
-            "$mainMod, G, exec, steam"
-            "$mainMod, D, exec, vesktop"
+        bind("R", exec("${pkgs.wofi}/bin/wofi --show drun"))
 
-            "$mainMod, left, movefocus, l"
-            "$mainMod, right, movefocus, r"
-            "$mainMod, up, movefocus, u"
-            "$mainMod, down, movefocus, d"
+        bind("G", exec("steam"))
+        bind("D", exec("vesktop"))
 
-            "$mainMod SHIFT, left, movewindow, l"
-            "$mainMod SHIFT, right, movewindow, r"
-            "$mainMod SHIFT, up, movewindow, u"
-            "$mainMod SHIFT, down, movewindow, d"
+        for _, dir in ipairs({ "left", "right", "up", "down" }) do
+            bind(dir, hl.dsp.focus({ direction = dir }))
+            bind("SHIFT + " .. dir, hl.dsp.window.move({ direction = dir }))
+        end
 
-            "$mainMod, 1, workspace, 1"
-            "$mainMod, 2, workspace, 2"
-            "$mainMod, 3, workspace, 3"
-            "$mainMod, 4, workspace, 4"
-            "$mainMod, 5, workspace, 5"
-            "$mainMod, 6, workspace, 6"
-            "$mainMod, 7, workspace, 7"
-            "$mainMod, 8, workspace, 8"
-            "$mainMod, 9, workspace, 9"
-            "$mainMod, 0, workspace, 10"
+        for i = 1, 10 do
+            local key = i % 10 -- 10 maps to key 0
+            bind(key, hl.dsp.focus({ workspace = i }))
+            bind("SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+        end
 
-            "$mainMod SHIFT, 1, movetoworkspace, 1"
-            "$mainMod SHIFT, 2, movetoworkspace, 2"
-            "$mainMod SHIFT, 3, movetoworkspace, 3"
-            "$mainMod SHIFT, 4, movetoworkspace, 4"
-            "$mainMod SHIFT, 5, movetoworkspace, 5"
-            "$mainMod SHIFT, 6, movetoworkspace, 6"
-            "$mainMod SHIFT, 7, movetoworkspace, 7"
-            "$mainMod SHIFT, 8, movetoworkspace, 8"
-            "$mainMod SHIFT, 9, movetoworkspace, 9"
-            "$mainMod SHIFT, 0, movetoworkspace, 10"
+        bind("S", hl.dsp.workspace.toggle_special("magic"))
+        bind("SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
-            "$mainMod, S, togglespecialworkspace, magic"
-            "$mainMod SHIFT, S, movetoworkspace, special:magic"
+        bind("mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+        bind("mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
-            "$mainMod, mouse_down, workspace, e+1"
-            "$mainMod, mouse_up, workspace, e-1"
+        bind("mouse:272", hl.dsp.window.drag(), { mouse = true })
+        bind("mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-            ", xf86audiomute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-            ", xf86audioplay, exec, playerctl play-pause"
-            ", xf86audionext, exec, playerctl next"
-            ", xf86audioprev, exec, playerctl previous"
-        ];
+        -- media keys (no modifier)
+        hl.bind("XF86AudioMute", exec("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
+        hl.bind("XF86AudioPlay", exec("playerctl play-pause"))
+        hl.bind("XF86AudioNext", exec("playerctl next"))
+        hl.bind("XF86AudioPrev", exec("playerctl previous"))
 
-        binde = [
-            ", xf86audioraisevolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ +10%"
-            "$mainMod, pgup, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ +10%"
-            "$mainMod, pgdown, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ -10%"
-            ", xf86audiolowervolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ -10%"
-        ];
-
-        bindm = [
-            "$mainMod, mouse:272, movewindow"
-            "$mainMod, mouse:273, resizewindow"
-        ];
-    };
+        -- volume (repeats while held)
+        local volUp = "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ +10%"
+        local volDown = "wpctl set-volume @DEFAULT_AUDIO_SINK@ -10%"
+        hl.bind("XF86AudioRaiseVolume", exec(volUp), { repeating = true })
+        hl.bind("XF86AudioLowerVolume", exec(volDown), { repeating = true })
+        bind("Page_Up", exec(volUp), { repeating = true })
+        bind("Page_Down", exec(volDown), { repeating = true })
+    '';
 }
