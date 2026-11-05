@@ -145,7 +145,6 @@
   nixpkgs.config.allowUnfree = true; 
   environment.systemPackages = with pkgs; [
     # Development
-    jetbrains-toolbox
     nix-direnv
     direnv
     vscode
