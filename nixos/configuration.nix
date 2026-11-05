@@ -121,7 +121,26 @@
     enable = true;
     xwayland.enable = true;
   };
-  # TODO: Add hyprlock lock screen
+  # Creates /etc/pam.d/hyprlock so it can check passwords. Look & feel lives in home-manager.
+  programs.hyprlock.enable = true;
+
+  # Autologin straight into Hyprland once per boot (Hyprland then locks itself with hyprlock).
+  # After logout/crash, fall back to the tuigreet login. Only touches greetd's VT; sshd is untouched.
+  # zsh -l so home-manager's session vars / PATH get loaded like a normal tty login.
+  services.greetd = {
+    enable = true;
+    settings = {
+      initial_session = {
+        command = "${pkgs.zsh}/bin/zsh -lc 'HYPRLOCK_ON_START=1 start-hyprland'";
+        user = "dani";
+      };
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --cmd '${pkgs.zsh}/bin/zsh -lc start-hyprland'";
+        user = "greeter";
+      };
+    };
+  };
+
   # TODO: Add screen sharing ability
   # TODO: set up screen capture
 
@@ -211,7 +230,6 @@
 
     # Desktop
     hyprpaper
-    hyprlock
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
     openrgb-with-all-plugins

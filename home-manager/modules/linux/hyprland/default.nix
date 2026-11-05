@@ -5,6 +5,7 @@
 in {
     imports = [
         ./keybinds.nix
+        ./lock.nix
         # ./cursor.nix # managed by stylix now
     ];
 
@@ -36,6 +37,9 @@ in {
             hl.on("hyprland.start", function()
                 hl.exec_cmd("hyprpaper")
                 hl.exec_cmd("waybar")
+                hl.exec_cmd("hypridle")
+                -- HYPRLOCK_ON_START is only set by greetd's autologin (see lock.nix)
+                hl.exec_cmd('test -n "$HYPRLOCK_ON_START" && hyprlock') -- not [ ]: a leading [ is parsed as exec rules
             end)
 
             hl.env("GDK_BACKEND", "wayland")
