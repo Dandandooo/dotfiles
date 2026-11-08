@@ -94,6 +94,12 @@
   ##### SHELL
   # programs.thefuck.enable = true;
   programs.pay-respects.enable = true;
+  # auto-load `use flake` envs from .envrc; nix-direnv caches them so they survive gc
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    silent = true;
+  };
 
   ##### FILES
   programs.zoxide.enable = true;

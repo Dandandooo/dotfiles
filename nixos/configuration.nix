@@ -166,8 +166,6 @@
   nixpkgs.config.allowUnfree = true; 
   environment.systemPackages = with pkgs; [
     # Development
-    nix-direnv
-    direnv
     vscode
     # (vscode-fhs.override {
     #   additionalPkgs = pkgs: with pkgs; [
