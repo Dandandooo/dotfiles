@@ -55,6 +55,8 @@
       waybar.addCss = false;
       firefox.profileNames = [ "default" ];
       firefox.colorTheme.enable = true;
+      # stylix still sets the renamed programs.rofi.font; rofi is unused anyway
+      rofi.enable = false;
     };
   };
 

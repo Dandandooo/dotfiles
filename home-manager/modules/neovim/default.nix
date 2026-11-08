@@ -20,6 +20,8 @@
 
     programs.nixvim = {
         enable = true;
+        # we follow our own nixpkgs in flake.nix; make that explicit to silence the warning
+        nixpkgs.source = inputs.nixpkgs;
 
         opts = {
             smarttab = true;
