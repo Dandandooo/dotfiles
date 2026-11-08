@@ -105,7 +105,7 @@
   users.users.dani = {
     isNormalUser = true;
     description = "Dani";
-    extraGroups = [ "networkmanager" "wheel" "docker" "i2c" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "i2c" "dialout" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
