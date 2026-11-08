@@ -23,11 +23,13 @@
                 outline_thickness = 3;
                 fade_on_empty = false;
                 placeholder_text = "Password...";
+                font_family = "Kelly Slab";
             };
             label = {
                 monitor = "";
                 text = "$TIME";
                 font_size = 72;
+                font_family = "Kelly Slab";
                 position = "0, 80";
                 halign = "center";
                 valign = "center";

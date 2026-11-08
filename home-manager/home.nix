@@ -52,6 +52,7 @@
     (google-fonts.override { fonts = [ 
       "Fira Code"
       "Kablammo"
+      "Kelly Slab"
       "Lexend"
       "Modak"
       "Moiri"
@@ -63,6 +64,9 @@
     ]; })
   ];
 
+
+  # rebuilds the font cache on activation so newly added fonts are found
+  fonts.fontconfig.enable = true;
 
   home.file = {
     wallpapers = {

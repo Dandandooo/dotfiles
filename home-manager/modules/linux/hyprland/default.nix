@@ -90,6 +90,10 @@ in {
 
                 misc = {
                     force_default_wallpaper = -1,
+                    -- keep rendering (and sending frame callbacks to) surfaces under the lock screen.
+                    -- Otherwise hyprpaper, started alongside the autologin hyprlock, can't draw its
+                    -- wallpaper until after unlock. hyprlock's background is opaque, so nothing shows through.
+                    session_lock_xray = true,
                     vrr = 2, -- 2 = adaptive sync only in fullscreen apps (1 = always, causes desktop refresh swings)
                 },
 
