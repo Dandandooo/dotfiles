@@ -25,15 +25,31 @@ Singleton {
     }
 
     // Short grace period so moving between modules morphs the open popout to
-    // the next one instead of closing and reopening it.
+    // the next one instead of closing and reopening it, and so the pointer
+    // can cross from a module down into its popout.
     function hide(item: Item): void {
         if (target === item)
+            closeTimer.restart();
+    }
+
+    // While the pointer is over the popout itself it stays open; leaving it
+    // starts the same grace period as leaving the module.
+    property bool hovered: false
+
+    function setHovered(h: bool): void {
+        hovered = h;
+        if (h)
+            closeTimer.stop();
+        else if (target)
             closeTimer.restart();
     }
 
     Timer {
         id: closeTimer
         interval: 150
-        onTriggered: root.target = null
+        onTriggered: {
+            if (!root.hovered)
+                root.target = null;
+        }
     }
 }

@@ -10,6 +10,7 @@ Item {
     id: root
 
     readonly property var win: QsWindow.window
+    readonly property alias hitArea: body
     readonly property bool active: Popouts.target !== null && Popouts.window === win
     readonly property real pad: 10
     readonly property real fillet: 10
@@ -107,12 +108,19 @@ Item {
 
     // Content is anchored to the popout's bottom and clipped at the bar, so it
     // slides down out from behind the bar as the popout grows.
+    // Also the popout's hit area: the bar adds it to its input mask, and
+    // hovering it keeps the popout open.
     Item {
+        id: body
         x: root.x0
         y: root.base + 1
         width: root.popW
         height: Math.max(0, root.h - 1)
         clip: true
+
+        HoverHandler {
+            onHoveredChanged: Popouts.setHovered(hovered)
+        }
 
         Item {
             anchors.bottom: parent.bottom

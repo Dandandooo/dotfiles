@@ -17,14 +17,19 @@ Scope {
                 right: true
             }
             // Extra transparent room below the bar for popouts to grow into.
-            // Only the bar strip reserves space and takes input.
+            // Only the bar strip reserves space; input goes to the bar strip and
+            // the open popout, everything else clicks through.
             implicitHeight: Theme.barHeight + 240
             exclusiveZone: Theme.barHeight
             color: "transparent"
-            mask: Region { item: barArea }
+            mask: Region {
+                item: barArea
+                Region { item: popout.hitArea }
+            }
 
             // Draws the bar background and border too.
             Popout {
+                id: popout
                 anchors.fill: parent
             }
 
