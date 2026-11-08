@@ -20,6 +20,10 @@
     amdgpu_top
   ];
 
+  # Linux only: on macOS (dani@brick) Zed is the self-updating Zed.app, and the
+  # nixpkgs build has auto-update disabled, so don't install it there.
+  programs.zed-editor.enable = true;
+
   home.sessionVariables = {
     DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
   };

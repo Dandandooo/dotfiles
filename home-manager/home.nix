@@ -123,8 +123,6 @@
     };
   };
 
-  programs.zed-editor.enable = true;
-
   home.sessionPath = [
     "/home/dani/.local/share/JetBrains/Toolbox/scripts"
   ];
