@@ -236,7 +236,6 @@
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
     openrgb-with-all-plugins
-    waybar
     eww
     wofi
 
@@ -290,7 +289,7 @@
     enable = true;
     motherboard = "amd";
   };
-  # Let users read the RAPL energy counter (waybar power indicator).
+  # Let users read the RAPL energy counter (quickshell bar power indicator).
   services.udev.extraRules = ''
     SUBSYSTEM=="powercap", ACTION=="add", RUN+="${pkgs.coreutils}/bin/chmod a+r /sys%p/energy_uj"
   '';

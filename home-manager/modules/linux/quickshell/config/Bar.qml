@@ -1,7 +1,7 @@
 import Quickshell
 import QtQuick
 
-// Port of the waybar config in ../../waybar.nix. One bar per monitor.
+// The bar (ported from the old waybar config). One per monitor.
 Scope {
     Variants {
         model: Quickshell.screens

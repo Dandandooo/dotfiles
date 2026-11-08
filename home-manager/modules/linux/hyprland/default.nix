@@ -34,9 +34,26 @@ in {
                 hl.workspace_rule({ workspace = tostring(i), monitor = (i % 2 == 1) and "DP-3" or "HDMI-A-1" })
             end
 
+            -- "Smart gaps": a lone tiled (or fullscreen) window fills the
+            -- workspace with no gaps, border or rounding.
+            hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
+            hl.workspace_rule({ workspace = "f[1]",   gaps_out = 0, gaps_in = 0 })
+            hl.window_rule({
+                name  = "no-gaps-wtv1",
+                match = { float = false, workspace = "w[tv1]" },
+                border_size = 0,
+                rounding    = 0,
+            })
+            hl.window_rule({
+                name  = "no-gaps-f1",
+                match = { float = false, workspace = "f[1]" },
+                border_size = 0,
+                rounding    = 0,
+            })
+
             hl.on("hyprland.start", function()
                 hl.exec_cmd("hyprpaper")
-                hl.exec_cmd("waybar")
+                hl.exec_cmd("qs")
                 hl.exec_cmd("hypridle")
                 -- HYPRLOCK_ON_START is only set by greetd's autologin (see lock.nix)
                 hl.exec_cmd('test -n "$HYPRLOCK_ON_START" && hyprlock') -- not [ ]: a leading [ is parsed as exec rules

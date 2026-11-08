@@ -9,7 +9,6 @@
     ./hyprland
     ./quickshell
     ./stylix.nix
-    ./waybar.nix
   ];
 
 

@@ -1,8 +1,8 @@
 { config, ... }:
 
 {
-  # Installs the `quickshell` / `qs` binaries. Not autostarted yet: waybar is
-  # still the bar. Try it with `pkill waybar; qs`.
+  # Installs the `quickshell` / `qs` binaries. Hyprland starts `qs` on login
+  # (hyprland/default.nix).
   programs.quickshell.enable = true;
 
   # Out-of-store symlink so ~/.config/quickshell points straight at the repo:

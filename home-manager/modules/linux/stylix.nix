@@ -52,7 +52,6 @@
       starship.enable = true;
       spicetify.enable = true;
       kitty.variant256Colors = true;
-      waybar.addCss = false;
       firefox.profileNames = [ "default" ];
       firefox.colorTheme.enable = true;
       # stylix still sets the renamed programs.rofi.font; rofi is unused anyway
