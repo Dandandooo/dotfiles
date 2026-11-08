@@ -34,7 +34,22 @@
   programs.hyprland.enable = true;
   programs.zsh.enable = true;
 
-  services.openssh.enable = true;
+  # Keys only. Port 22 is still open on all interfaces (no tailscale on this host yet).
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = [ "dani" ];
+      X11Forwarding = false;
+      MaxAuthTries = 3;
+      LoginGraceTime = 20;
+    };
+  };
+  users.users.dani.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILAkz2eu9QqRZ5oJ31Le7TR5Iwc1n69Tjt/ghjCIgQCX dani@brick"
+  ];
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";

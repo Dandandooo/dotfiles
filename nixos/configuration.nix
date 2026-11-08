@@ -311,8 +311,24 @@
 
   ####### DEVELOPMENT #######
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # Enable the OpenSSH daemon. Keys only, reachable only over tailscale.
+  services.openssh = {
+    enable = true;
+    openFirewall = false;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = [ "dani" ];
+      X11Forwarding = false;
+      MaxAuthTries = 3;
+      LoginGraceTime = 20;
+    };
+  };
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 22 ];
+  users.users.dani.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILAkz2eu9QqRZ5oJ31Le7TR5Iwc1n69Tjt/ghjCIgQCX dani@brick"
+  ];
   services.tailscale.enable = true;
 
   ########## NIXOS ##########
