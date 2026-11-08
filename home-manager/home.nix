@@ -21,6 +21,8 @@
     ghc
     zig
     uv
+    nil
+    nixd
 
     zulu8
     tailscale
