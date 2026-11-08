@@ -38,26 +38,31 @@ Scope {
 
             Row {
                 anchors.right: parent.right
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.top: parent.top
+                // Full bar height minus the bottom border; each child centers
+                // itself in it (Row alone would top-align mixed heights).
+                height: parent.height - 2
                 spacing: 16
 
-                Volume {}
-                Separator {}
-                BarText { text: ` ${SysStats.cpu}%` }
-                BarText { text: `\u{f08ae} ${SysStats.gpu}%` }
-                BarText { text: ` ${SysStats.memory}%` }
-                Power {}
-                Separator {}
+                Volume { anchors.verticalCenter: parent.verticalCenter }
+                Separator { anchors.verticalCenter: parent.verticalCenter }
+                BarText { text: ` ${SysStats.cpu}%`; anchors.verticalCenter: parent.verticalCenter }
+                BarText { text: `\u{f08ae} ${SysStats.gpu}%`; anchors.verticalCenter: parent.verticalCenter }
+                BarText { text: ` ${SysStats.memory}%`; anchors.verticalCenter: parent.verticalCenter }
+                Power { anchors.verticalCenter: parent.verticalCenter }
+                Separator { anchors.verticalCenter: parent.verticalCenter }
 
                 BarText {
+                    anchors.verticalCenter: parent.verticalCenter
                     text: "\u{f0904}"
+                    font.pixelSize: 24  // the glyph is small at the 16px text size
                     MouseArea {
                         anchors.fill: parent
                         onClicked: Quickshell.execDetached(["systemctl", "suspend"])
                     }
                 }
 
-                Clock {}
+                Clock { anchors.verticalCenter: parent.verticalCenter }
             }
         }
     }
