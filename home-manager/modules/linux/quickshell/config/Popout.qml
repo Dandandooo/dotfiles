@@ -5,7 +5,8 @@ import QtQuick.Shapes
 // Bar background + bottom border + popout, drawn as one shape so the popout
 // grows out of the bar (caelestia-dots/shell style): the border dips around it
 // with concave fillets where it joins, it slides down from behind the bar on
-// open, and morphs position/size between items while the content crossfades.
+// open and shrinks back into it on close. Switching to another item respawns
+// it at the new item rather than sliding over from the old one.
 Item {
     id: root
 
@@ -18,57 +19,71 @@ Item {
     // Centerline of the 2px bottom border.
     readonly property real base: Theme.barHeight - 1
 
-    property real centerX: 0
     readonly property real contentW: current.implicitWidth + pad * 2
     readonly property real contentH: current.implicitHeight + pad * 2
 
-    // Animated geometry. x/width only animate while already open, so a fresh
-    // popout appears in place and just grows; height always animates.
-    property real popW: contentW
-    property real popX: Math.max(fillet + 4, Math.min(width - popW - fillet - 4, centerX - popW / 2))
-    property real popH: active ? contentH : 0
+    // Animated geometry, set only by sync(). Writes made while `snapping`
+    // bypass (and stop) the animations.
+    property real popW: 0
+    property real popX: 0
+    property real popH: 0
+    property bool snapping: false
     readonly property bool open: popH > 0.5
 
-    Behavior on popW { enabled: root.open; Anim {} }
-    Behavior on popX { enabled: root.open; Anim {} }
-    Behavior on popH { Anim {} }
+    Behavior on popW { enabled: !root.snapping; Anim {} }
+    Behavior on popX { enabled: !root.snapping; Anim {} }
+    Behavior on popH { enabled: !root.snapping; Anim {} }
 
-    // Re-measured whenever this bar gains the popout or its target changes,
-    // not only on target changes (the same item can reopen it later).
-    function updateCenter(): void {
-        const t = Popouts.target;
-        if (root.active && t)
-            root.centerX = t.mapToItem(root, t.width / 2, 0).x;
+    // The item the popout is currently drawn for.
+    property Item shownFor: null
+
+    function xFor(t: Item, w: real): real {
+        const center = t.mapToItem(root, t.width / 2, 0).x;
+        return Math.max(fillet + 4, Math.min(width - w - fillet - 4, center - w / 2));
     }
-    onActiveChanged: updateCenter()
+
+    // Brings the geometry in line with Popouts. Popouts.show() changes the
+    // window, text and target one after another, so this runs once after all
+    // of them (Qt.callLater coalesces) instead of reacting to each.
+    function sync(): void {
+        const t = active ? Popouts.target : null;
+
+        if (!t) {
+            // Close: shrink back into the bar, keeping the last text.
+            shownFor = null;
+            popH = 0;
+            return;
+        }
+
+        current.text = Popouts.text;
+
+        if (t !== shownFor) {
+            // New item: appear at it and grow from the bar, like a fresh open.
+            shownFor = t;
+            snapping = true;
+            popH = 0;
+            popW = contentW;
+            popX = xFor(t, contentW);
+            snapping = false;
+            popH = contentH;
+        } else {
+            // Same item, new text (e.g. live values): resize in place.
+            popW = contentW;
+            popX = xFor(t, contentW);
+            popH = contentH;
+        }
+    }
+
+    onActiveChanged: Qt.callLater(sync)
 
     Connections {
         target: Popouts
         function onTargetChanged() {
-            root.updateCenter();
+            Qt.callLater(root.sync);
         }
         function onTextChanged() {
-            if (!root.active) {
-                // Opening from closed: no crossfade, just show it.
-                crossfade.stop();
-                previous.opacity = 0;
-                current.text = Popouts.text;
-                current.opacity = 1;
-                return;
-            }
-            // Morphing between items: old text fades out over the new one.
-            previous.text = current.text;
-            previous.opacity = 1;
-            current.text = Popouts.text;
-            current.opacity = 0;
-            crossfade.restart();
+            Qt.callLater(root.sync);
         }
-    }
-
-    ParallelAnimation {
-        id: crossfade
-        FadeAnim { target: previous; property: "opacity"; to: 0 }
-        FadeAnim { target: current; property: "opacity"; to: 1 }
     }
 
     // The overshooting curve can briefly push height below zero on close.
@@ -129,13 +144,6 @@ Item {
             height: root.contentH
             opacity: root.active ? 1 : 0
             Behavior on opacity { FadeAnim {} }
-
-            BarText {
-                id: previous
-                anchors.centerIn: parent
-                opacity: 0
-                lineHeight: 1.15
-            }
 
             BarText {
                 id: current
