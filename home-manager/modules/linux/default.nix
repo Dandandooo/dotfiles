@@ -8,6 +8,7 @@
     # ./ags
     ./hyprland
     ./quickshell
+    ./claude
     ./stylix.nix
   ];
 
