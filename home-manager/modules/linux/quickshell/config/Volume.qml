@@ -18,11 +18,19 @@ BarText {
     }
 
     MouseArea {
+        id: hover
         anchors.fill: parent
+        hoverEnabled: true
         onClicked: root.sink.audio.muted = !root.sink.audio.muted
         onWheel: wheel => {
             const step = wheel.angleDelta.y > 0 ? 0.05 : -0.05;
             root.sink.audio.volume = Math.max(0, Math.min(1, root.sink.audio.volume + step));
         }
+    }
+
+    Tooltip {
+        target: root
+        shown: hover.containsMouse
+        text: root.sink?.description ?? ""
     }
 }
