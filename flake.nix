@@ -49,6 +49,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Rex has no stable release yet; preview is the newest tagged channel.
+    rex.url = "https://pkgs.superlogical.com/rex/nix/preview.tar.gz";
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -100,6 +103,7 @@
         modules = [ 
           home-manager/home.nix
           home-manager/modules/linux
+          { services.rex.tailscale.hostname = "nixxie-rex"; }
         ];
         extraSpecialArgs = { inherit inputs; };
       };
@@ -108,6 +112,7 @@
         modules = [
           home-manager/home.nix
           home-manager/modules/linux
+          { services.rex.tailscale.hostname = "mixxie-rex"; }
         ];
         extraSpecialArgs = { inherit inputs; };
       };
@@ -116,6 +121,7 @@
         modules = [ 
           home-manager/home.nix
           home-manager/modules/linux
+          { services.rex.tailscale.hostname = "applenix-rex"; }
         ];
         extraSpecialArgs = { inherit inputs; };
       };

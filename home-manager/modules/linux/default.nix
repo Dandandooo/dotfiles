@@ -9,6 +9,7 @@
     ./hyprland
     ./quickshell
     ./claude
+    ./rex.nix
     ./stylix.nix
   ];
 
