@@ -246,9 +246,6 @@
     # Notifications
     dunst
 
-    # Java
-    zulu8
-
     # Screen Capture
     grim
     slurp
