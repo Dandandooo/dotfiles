@@ -6,6 +6,7 @@ in {
     imports = [
         ./keybinds.nix
         ./lock.nix
+        ./monitors.nix # outputs, scaling and workspace placement (runtime, hotplug-aware)
         # ./cursor.nix # managed by stylix now
     ];
 
@@ -26,14 +27,6 @@ in {
         ];
 
         extraConfig = ''
-            hl.monitor({ output = "DP-3",     mode = "highres@highrr", position = "0x0",    scale = 1.5, vrr = 2 })
-            hl.monitor({ output = "HDMI-A-1", mode = "highres@highrr", position = "2560x0", scale = 1.5, vrr = 2 })
-
-            -- odd workspaces on DP-3, even on HDMI-A-1
-            for i = 1, 10 do
-                hl.workspace_rule({ workspace = tostring(i), monitor = (i % 2 == 1) and "DP-3" or "HDMI-A-1" })
-            end
-
             -- "Smart gaps": a lone tiled (or fullscreen) window fills the
             -- workspace with no gaps, border or rounding.
             hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
@@ -60,7 +53,6 @@ in {
             end)
 
             hl.env("GDK_BACKEND", "wayland")
-            hl.env("GDK_SCALE", "1.5")
 
             hl.config({
                 general = {
