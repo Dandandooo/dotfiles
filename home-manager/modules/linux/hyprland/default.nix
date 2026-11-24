@@ -2,6 +2,36 @@
 
     hypr-plugins = inputs.hyprland-plugins.packages.${pkgs.system};
 
+    layout = config.dotfiles.monitors.layout;
+
+    # Per-host monitor setup. Quickshell's Workspaces.qml picks up the
+    # odd/even split by itself when both DP-3 and HDMI-A-1 are connected.
+    monitorConfig = {
+        # nixxie (primary): dual 4k, odd workspaces left, even right.
+        "dual-4k" = ''
+            hl.monitor({ output = "DP-3",     mode = "highres@highrr", position = "0x0",    scale = 1.5, vrr = 2 })
+            hl.monitor({ output = "HDMI-A-1", mode = "highres@highrr", position = "2560x0", scale = 1.5, vrr = 2 })
+
+            -- odd workspaces on DP-3, even on HDMI-A-1
+            for i = 1, 10 do
+                hl.workspace_rule({ workspace = tostring(i), monitor = (i % 2 == 1) and "DP-3" or "HDMI-A-1" })
+            end
+
+            hl.env("GDK_SCALE", "1.5")
+        '';
+
+        # mixxie: a single 1080p monitor holding every workspace.
+        "single-1080p" = ''
+            hl.monitor({ output = "HDMI-A-1", mode = "highres@highrr", position = "0x0", scale = 1, vrr = 2 })
+
+            for i = 1, 10 do
+                hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1" })
+            end
+
+            hl.env("GDK_SCALE", "1")
+        '';
+    }.${layout};
+
 in {
     imports = [
         ./keybinds.nix
@@ -9,6 +39,13 @@ in {
         # ./cursor.nix # managed by stylix now
     ];
 
+    options.dotfiles.monitors.layout = lib.mkOption {
+        type = lib.types.enum [ "dual-4k" "single-1080p" ];
+        default = "dual-4k";
+        description = "Which physical monitor setup this host has (sets Hyprland outputs, scaling and workspace placement).";
+    };
+
+    config = {
     wayland.windowManager.hyprland = {
         enable = true;
         configType = "lua";
@@ -26,14 +63,7 @@ in {
         ];
 
         extraConfig = ''
-            hl.monitor({ output = "DP-3",     mode = "highres@highrr", position = "0x0",    scale = 1.5, vrr = 2 })
-            hl.monitor({ output = "HDMI-A-1", mode = "highres@highrr", position = "2560x0", scale = 1.5, vrr = 2 })
-
-            -- odd workspaces on DP-3, even on HDMI-A-1
-            for i = 1, 10 do
-                hl.workspace_rule({ workspace = tostring(i), monitor = (i % 2 == 1) and "DP-3" or "HDMI-A-1" })
-            end
-
+            ${monitorConfig}
             -- "Smart gaps": a lone tiled (or fullscreen) window fills the
             -- workspace with no gaps, border or rounding.
             hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
@@ -60,7 +90,6 @@ in {
             end)
 
             hl.env("GDK_BACKEND", "wayland")
-            hl.env("GDK_SCALE", "1.5")
 
             hl.config({
                 general = {
@@ -152,6 +181,7 @@ in {
             wallpaper = [ ",${wallpaper}" ];
             splash = lib.mkForce true;
         };
+    };
     };
 
 }
