@@ -18,7 +18,7 @@
     # System status
     lm_sensors
     amdgpu_top
-    neofetch
+    fastfetch
     btop
 
     hyprpaper

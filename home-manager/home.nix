@@ -22,7 +22,6 @@
     zig
     uv
 
-    zulu8
     tailscale
     # zulu17
     dconf

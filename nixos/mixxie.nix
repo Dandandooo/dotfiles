@@ -48,9 +48,12 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 25565 ];
+    allowedTCPPorts = [ 22 25565 ];
     allowedUDPPorts = [ 25565 ];
+    trustedInterfaces = [ "tailscale0" ];
   };
+
+  services.tailscale.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.kernelModules = [ "amdgpu" ];

@@ -1,10 +1,11 @@
-{ config, nix-minecraft, pkgs, nixpkgs, ... }:
+{ config, pkgs, nix-minecraft, ... }:
 
 {
   imports = [
     nix-minecraft.nixosModules.minecraft-servers
     ./rlcraft.nix
     ./lbthieves.nix
+    ./paper.nix
   ];
 
   nixpkgs.overlays = [
@@ -15,7 +16,7 @@
     # Java builds
     graalvmPackages.graalvm-oracle # JDK 25
     graalvmPackages.graalvm-oracle_17 # JDK 17
-    zulu8 # JDK 8
+    # zulu8 # JDK 8
     # zulu17
   ];
 
@@ -26,10 +27,10 @@
     dataDir = "/minecraft/servers";
     managementSystem = {
       systemd-socket = {
-        enable = true;
+        enable = false;
       };
       tmux = {
-        enable = false;
+        enable = true;
         socketPath = name: "/minecraft/run/${name}.sock";
       };
     };

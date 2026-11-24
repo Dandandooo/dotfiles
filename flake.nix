@@ -67,9 +67,6 @@
           inputs.minegrub-world-sel-theme.nixosModules.default
           home-manager.nixosModules.home-manager
           nixos/configuration.nix
-          { environment.systemPackages = [
-              inputs.zen-browser.packages.x86_64-linux.specific
-            ]; }
         ];
         specialArgs = { inherit inputs; };
       };
