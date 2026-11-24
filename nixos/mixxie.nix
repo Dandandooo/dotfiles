@@ -32,12 +32,6 @@
     shell = pkgs.zsh;
   };
 
-  users.users.lunchbox = {
-    isNormalUser = true;
-    description = "Minecraft Server";
-    extraGroups = [ "minecraft" ];
-    packages = with pkgs; [];
-  };
 
   ###### MANAGEMENT ###### 
   # Nightly reboot at 03:30 (minecraft servers get a graceful `stop` via their systemd units)
