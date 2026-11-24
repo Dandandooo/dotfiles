@@ -40,19 +40,29 @@
   };
 
   ###### MANAGEMENT ###### 
-  services.cron = {
-    enable = true;
-    systemCronJobs = [
-      "30 3 * * * /sbin/shutdown -r"
-    ];
+  # Nightly reboot at 03:30 (minecraft servers get a graceful `stop` via their systemd units)
+  systemd.timers.nightly-reboot = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*-*-* 03:30:00";
+      Persistent = false;
+    };
+  };
+  systemd.services.nightly-reboot = {
+    serviceConfig.Type = "oneshot";
+    script = "${pkgs.systemd}/bin/systemctl reboot";
   };
 
+  # Nothing is open to the internet by default. SSH is reachable only over Tailscale
+  # (tailscale0 is trusted). Game/map ports are opened per-service (minecraft-servers.openFirewall).
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 22 25565 ];
-    allowedUDPPorts = [ 25565 ];
+    allowedTCPPorts = [ ];
+    allowedUDPPorts = [ ];
     trustedInterfaces = [ "tailscale0" ];
   };
+  services.openssh.openFirewall = false;
+  programs.steam.remotePlay.openFirewall = lib.mkForce false;
 
   services.tailscale.enable = true;
 
