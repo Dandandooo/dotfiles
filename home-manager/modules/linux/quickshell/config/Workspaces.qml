@@ -3,24 +3,29 @@ import Quickshell.Hyprland
 import QtQuick
 
 // Persistent workspaces per monitor, like waybar's persistent-workspaces.
-// On the dual setup (DP-3 + HDMI-A-1 both connected): odd on DP-3, even on
-// HDMI-A-1, matching the Hyprland workspace rules. Otherwise (e.g. mixxie's
-// single 1080p screen) every workspace is shown on every bar.
+// Mirrors the Hyprland rule in hyprland/monitors.nix, based only on how many
+// screens are connected (re-evaluated on hotplug, Quickshell.screens is live):
+//   1 screen  -> 1-10 on it
+//   2+ screens -> odd on the first, even on the second (sorted by output name)
 Row {
     id: root
     required property ShellScreen screen
     readonly property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
-    readonly property bool split: {
-        const names = Quickshell.screens.map(s => s.name);
-        return names.includes("DP-3") && names.includes("HDMI-A-1");
+    readonly property var order: Quickshell.screens.map(s => s.name).sort()
+    readonly property int index: order.indexOf(screen.name)
+
+    function shows(i) {
+        if (order.length < 2) return true;
+        if (index === 0) return i % 2 === 1;
+        if (index === 1) return i % 2 === 0;
+        return false;
     }
-    readonly property int parity: screen.name === "HDMI-A-1" ? 0 : 1
 
     spacing: 4
     leftPadding: 4
 
     Repeater {
-        model: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(i => !root.split || i % 2 === root.parity)
+        model: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(i => root.shows(i))
 
         Rectangle {
             id: button

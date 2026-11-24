@@ -112,10 +112,7 @@
         modules = [
           home-manager/home.nix
           home-manager/modules/linux
-          {
-            services.rex.tailscale.hostname = "mixxie-rex";
-            dotfiles.monitors.layout = "single-1080p";
-          }
+          { services.rex.tailscale.hostname = "mixxie-rex"; }
         ];
         extraSpecialArgs = { inherit inputs; };
       };
