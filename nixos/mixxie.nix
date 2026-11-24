@@ -11,6 +11,7 @@
       ./mixxie-hardware.nix
       ./general.nix
       ./modules/servers
+      ./modules/login.nix
     ];
 
   ###### MACHINE SPECIFIC ######
